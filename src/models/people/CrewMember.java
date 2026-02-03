@@ -18,6 +18,7 @@ public abstract class CrewMember extends Person {
         this.employeeId = employeeId;
         this.yearsOfExperience = yearsOfExperience;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -23,10 +23,6 @@ public class Terminal {
         gates.add(gate);
     }
 
-    public void addGate(Integer gateNumber) {
-        gates.add(new Gate(gateNumber));
-    }
-
     public String getName() {
         return name;
     }
@@ -34,9 +30,12 @@ public class Terminal {
     public void setName(String name) {
         this.name = name;
     }
-
     public List<Gate> getGates() {
-        return List.copyOf(gates);
+        return gates;
+    }
+
+    public void setGates(List<Gate> gates) {
+        this.gates = gates;
     }
 }
 

@@ -44,7 +44,6 @@ public class Passenger extends Person {
 
     public void buyTicket(Ticket ticket) {
         this.ticketNumber = ticket.getNumber();
-        /*ticket.bookedBy(this);*/
     }
 
     public String getTicketNumber() {

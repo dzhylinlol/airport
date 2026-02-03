@@ -12,10 +12,7 @@ public class Ticket {
     private Passenger passenger;
     private String seatNumber;
 
-    public Ticket() {
-    }
-
-    ;
+    public Ticket() {};
 
     public Ticket(String number,
                   String flightNumber,
@@ -62,6 +59,14 @@ public class Ticket {
 
     public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 }
 

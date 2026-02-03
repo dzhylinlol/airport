@@ -33,6 +33,20 @@ public class Flight {
         this.flightAttendant = flightAttendant;
     }
 
+    @Override
+    public String toString() {
+        return "Flight {" +
+                "id='" + id + '\'' +
+                ", terminal =" + terminal +
+                ", gate='" + gate + '\'' +
+                ", airplane='" + airplane + '\'' +
+                ", pilot=" + pilot +
+                ", flight attendant=" + flightAttendant +
+                ", passengers=" + passengers.size() +
+                '}';
+
+    }
+
     public void start() {
         System.out.println("Starting Flight"); // запизнуть флайт наймре
         airplane.takeOff();
@@ -55,28 +69,52 @@ public class Flight {
          }
     }
 
-
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Airplane getAirplane() {
         return airplane;
     }
 
+    public void setAirplane(Airplane airplane) {
+        this.airplane = airplane;
+    }
+
     public Pilot getPilot() {
         return pilot;
     }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
+    }
+
     public Gate getGate() {
         return gate;
+    }
+
+    public void setGate(Gate gate) {
+        this.gate = gate;
     }
 
     public Terminal getTerminal() {
         return terminal;
     }
 
+    public  void setTerminal(Terminal terminal) {
+        this.terminal = terminal;
+    }
+
     public FlightAttendant getFlightAttendant() {
         return flightAttendant;
+    }
+
+    public void setFLightAttendant(FlightAttendant flightAttendant) {
+        this.flightAttendant = flightAttendant;
     }
 
     public List<Passenger> getPassengers() {
