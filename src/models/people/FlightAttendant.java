@@ -1,5 +1,6 @@
 package models.people;
 import java.util.List;
+import java.util.Objects;
 
 public class FlightAttendant extends CrewMember {
     private List<String> languages;
@@ -17,6 +18,23 @@ public class FlightAttendant extends CrewMember {
         super(id, firstName, lastName, employeeId, yearsOfExperience);
         this.languages = languages;
         this.isPurser = isPurser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        FlightAttendant flightAttendant = (FlightAttendant) o;
+
+        if (this.hashCode() != flightAttendant.hashCode()) return false;
+        return Objects.equals(languages, flightAttendant.languages) && Objects.equals(isPurser, flightAttendant.isPurser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), languages, isPurser);
     }
 
     @Override

@@ -1,15 +1,14 @@
 package models.people;
 
+import java.util.Objects;
+
 public abstract class Person {
 
     private Long id;
     private String firstName;
     private String lastName;
 
-    public Person() {
-    }
-
-    ;
+    public Person() {};
 
     public Person(Long id, String firstName, String lastName) {
         this.id = id;
@@ -28,26 +27,19 @@ public abstract class Person {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-
-        if (this == o) {
-            return true;
-        }
-
-        if (this.getClass() == o.getClass()) {
-            return true;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         Person person = (Person) o;
-        if (this.id.equals(person.getId())
-                && this.firstName.equals(person.getFirstName())
-                && this.lastName.equals(person.getLastName())) {
-            return true;
-        }
 
-        return false;
+        if (this.hashCode() != person.hashCode()) return false;
+        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName);
     }
 
     public abstract String getRole();
