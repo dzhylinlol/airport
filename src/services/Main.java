@@ -3,10 +3,10 @@ package services;
 import models.infrastructure.*;
 import models.people.FlightAttendant;
 import models.people.Passenger;
+import models.people.Person;
 import models.people.Pilot;
 import models.planes.Airplane;
 import models.planes.PassengerPlane;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,25 +34,25 @@ public class Main {
 
         System.out.println("======2.Adding crew,  passenger plane, composing flight=====");
 
-        Pilot pilot = new Pilot(1L, "Mike", "White","pilot84574", 24, "KL35", "1st");
+        Person pilot = new Pilot(1L, "Mike", "White","pilot84574", 24, "KL35", "1st");
         FlightAttendant flightAttendant = new FlightAttendant(298L, "Sarah", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
         Airplane passengerPlane = new PassengerPlane(7456L,"HGG-4657",746,65333);
-        Flight flight = new Flight("WM9875",gateFrom, pilot, passengerPlane, flightAttendant, new ArrayList<>(), terminalFrom);
+        Flight flight = new Flight("WM9875",gateFrom, (Pilot) pilot, passengerPlane, flightAttendant, new ArrayList<>(), terminalFrom);
 
 
-        Ticket ticket1 = new Ticket("T1","WM9875", "14B", null);
-        Ticket ticket2 = new Ticket("T2","WM9875", "14C", null);
-        Ticket ticket3 = new Ticket("T3","WM9875", "14G", null);
-        Ticket ticket4 = new Ticket("T4","WM9875", "14H", null);
+        Ticket ticket1 = new Ticket("T1","WM9875", "14B");
+        Ticket ticket2 = new Ticket("T2","WM9875", "14C";
+        Ticket ticket3 = new Ticket("T3","WM9875", "14G");
+        Ticket ticket4 = new Ticket("T4","WM9875", "14H");
 
-        ticket4.bookedBy(5L, "Maria", "Petrovna");
+//       ticket4.bookedBy(5L, "Maria", "Petrovna"); /// why do i need this?
         System.out.println("Ticket 4: " + ticket4);
 
         Passenger passenger1 = new Passenger(876L, "Adam", "Lipski", ticket1.getNumber());
         Passenger passenger1copy = new Passenger(878L, "Adam", "Lipski", ticket1.getNumber());
         Passenger passenger2 = new Passenger(93L, "Denis", "Mckean", ticket3.getNumber());
 
-        ticket3.bookedBy(passenger1);
+//       ticket3.bookedBy(passenger1);
         System.out.println("Ticket 3: " + ticket3 + " " + passenger1);
 
         System.out.println("Ticket" + ticket1.toString());
@@ -75,7 +75,6 @@ public class Main {
         System.out.println("Passenger " + passenger1.toString());
 
         flight.start();
-
         flight.finish();
 
 

@@ -4,16 +4,16 @@ import models.infrastructure.Ticket;
 import java.util.Objects;
 
 public class Passenger extends Person {
-    private String ticketNumber;
+    private Ticket ticket;
 
     public Passenger() {};
 
     public Passenger(Long id,
                      String firstName,
                      String lastName,
-                     String ticketNumber) {
+                     Ticket ticket) {
         super(id, firstName, lastName);
-        this.ticketNumber = ticketNumber;
+        this.ticket = ticket;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Passenger extends Person {
 
     @Override
     public String toString() {
-        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " " + ticketNumber;
+        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " " + ticket;
     }
 
     @Override
@@ -35,24 +35,24 @@ public class Passenger extends Person {
         Passenger passenger = (Passenger) o;
 
         if (this.hashCode() != passenger.hashCode()) return false;
-        return Objects.equals(ticketNumber, passenger.ticketNumber);
+        return Objects.equals(ticket, passenger.ticket);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), ticketNumber);
+        return Objects.hash(super.hashCode(), ticket);
     }
 
     public void buyTicket(Ticket ticket) {
-        this.ticketNumber = ticket.getNumber();
+        this.ticket = ticket;
     }
 
-    public String getTicketNumber() {
-        return ticketNumber;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
 }
