@@ -1,5 +1,6 @@
 package models.people;
 import models.infrastructure.Ticket;
+
 import java.util.Objects;
 
 public class Passenger extends Person {

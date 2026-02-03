@@ -48,7 +48,7 @@ public class Flight {
     }
 
     public void start() {
-        System.out.println("Starting Flight"); // запизнуть флайт наймре
+        System.out.println("Starting Flight");
         airplane.takeOff();
     };
 

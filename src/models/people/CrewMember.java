@@ -3,7 +3,6 @@ package models.people;
 import java.util.Objects;
 
 public abstract class CrewMember extends Person {
-
     private String employeeId;
     private Integer yearsOfExperience;
 

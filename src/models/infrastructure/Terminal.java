@@ -7,7 +7,6 @@ public class Terminal {
     private String name;
     private List<Gate> gates = new ArrayList<>();
 
-
     public Terminal() {}
 
     public Terminal(String name) {

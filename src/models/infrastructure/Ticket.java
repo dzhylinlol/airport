@@ -2,10 +2,6 @@ package models.infrastructure;
 
 import models.people.Passenger;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class Ticket {
     private String number;
     private String flightNumber;
