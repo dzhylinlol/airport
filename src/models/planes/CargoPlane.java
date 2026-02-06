@@ -1,8 +1,9 @@
 package models.planes;
 
 public class CargoPlane extends Airplane {
+
     private Integer maxPayloadKg;
-    private Double cargoVolumeCubicMeters;
+    private Double volumeCubicMeters;
 
     public CargoPlane() {}
 
@@ -12,7 +13,7 @@ public class CargoPlane extends Airplane {
                       Double currentPayloadKg) {
         super(id, model);
         this.maxPayloadKg = maxPayloadKg;
-        this.cargoVolumeCubicMeters = currentPayloadKg;
+        this.volumeCubicMeters = currentPayloadKg;
     }
 
     @Override
@@ -31,10 +32,10 @@ public class CargoPlane extends Airplane {
     public void setMaxPayloadKg(Integer maxPayloadKg) {
         this.maxPayloadKg = maxPayloadKg;
     }
-    public Double getCargoVolumeCubicMeters() {
-        return cargoVolumeCubicMeters;
+    public Double getVolumeCubicMeters() {
+        return volumeCubicMeters;
     }
-    public void setCargoVolumeCubicMeters(Double cargoVolumeCubicMeters) {
-        this.cargoVolumeCubicMeters = cargoVolumeCubicMeters;
+    public void setVolumeCubicMeters(Double volumeCubicMeters) {
+        this.volumeCubicMeters = volumeCubicMeters;
     }
 }

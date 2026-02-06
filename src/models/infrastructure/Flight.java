@@ -1,27 +1,38 @@
 package models.infrastructure;
+
 import models.people.FlightAttendant;
 import models.people.Passenger;
 import models.people.Pilot;
 import models.planes.Airplane;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Flight {
-    private String id;
+    private Long id;
     private Gate gate;
     private Pilot pilot;
     private Terminal terminal;
     private Airplane airplane;
     private List<Passenger> passengers;
-    private FlightAttendant flightAttendant;
+    private List<FlightAttendant> flightAttendants;
 
-    public Flight() {}
+    public Flight() {
+    }
 
-    public Flight(String id,
+    public Flight(Long id,
+                  Terminal terminal,
+                  Gate gate) {
+        this.id = id;
+        this.gate = gate;
+        this.terminal = terminal;
+    }
+
+    public Flight(Long id,
                   Gate gate,
                   Pilot pilot,
                   Airplane airplane,
-                  FlightAttendant flightAttendant,
+                  List<FlightAttendant> flightAttendants,
                   List<Passenger> passengers,
                   Terminal terminal) {
         this.id = id;
@@ -30,7 +41,7 @@ public class Flight {
         this.terminal = terminal;
         this.airplane = airplane;
         this.passengers = passengers;
-        this.flightAttendant = flightAttendant;
+        this.flightAttendants = flightAttendants;
     }
 
     @Override
@@ -41,39 +52,58 @@ public class Flight {
                 ", gate='" + gate + '\'' +
                 ", airplane='" + airplane + '\'' +
                 ", pilot=" + pilot +
-                ", flight attendant=" + flightAttendant +
-                ", passengers=" + passengers.size() +
+                ", flight attendant=" + flightAttendants +
+                ", passengers=" + passengers +
                 '}';
 
     }
 
-    public void start() {
-        System.out.println("Starting Flight");
-        airplane.takeOff();
-    };
-
-    public void finish() {
-        System.out.println("Finishing Flight");
-        airplane.land();
-    };
-
     public void addPassenger(Passenger newPassenger) {
+        if (this.passengers == null) {
+            this.passengers = new ArrayList<>();
+            passengers.add(newPassenger);
+            return;
+        }
+
         boolean hasSamePassenger = false;
         for (Passenger oldPassenger : passengers) {
             if (oldPassenger.equals(newPassenger)) {
                 hasSamePassenger = true;
             }
         }
-         if (hasSamePassenger == false){
-             this.passengers.add(newPassenger);
-         }
+        if (hasSamePassenger == false) {
+            this.passengers.add(newPassenger);
+        }
     }
 
-    public String getId() {
+    public void addPassengers(List<Passenger> newPassengers) {
+        for (Passenger newOne : newPassengers) {
+            this.addPassenger(newOne);
+        }
+    }
+
+    public void addFlightAttendant(FlightAttendant flightAttendant) {
+        if (this.flightAttendants == null) {
+            this.flightAttendants = new ArrayList<>();
+        }
+        this.flightAttendants.add(flightAttendant);
+    }
+
+    public void start() {
+        System.out.println("Starting Flight...");
+        airplane.takeOff();
+    };
+
+    public void finish() {
+        airplane.land();
+        System.out.println("Finishing Flight...");
+    };
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -105,16 +135,16 @@ public class Flight {
         return terminal;
     }
 
-    public  void setTerminal(Terminal terminal) {
+    public void setTerminal(Terminal terminal) {
         this.terminal = terminal;
     }
 
-    public FlightAttendant getFlightAttendant() {
-        return flightAttendant;
+    public List<FlightAttendant> getFlightAttendants() {
+        return flightAttendants;
     }
 
-    public void setFLightAttendant(FlightAttendant flightAttendant) {
-        this.flightAttendant = flightAttendant;
+    public void setFLightAttendants(List<FlightAttendant> flightAttendants) {
+        this.flightAttendants = flightAttendants;
     }
 
     public List<Passenger> getPassengers() {

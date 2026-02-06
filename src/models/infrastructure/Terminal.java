@@ -29,6 +29,7 @@ public class Terminal {
     public void setName(String name) {
         this.name = name;
     }
+
     public List<Gate> getGates() {
         return gates;
     }

@@ -3,7 +3,6 @@ package models.infrastructure;
 public class Gate {
     private Integer number;// nullable
 
-
     public Gate(Integer number) {
         this.number = number;
     }

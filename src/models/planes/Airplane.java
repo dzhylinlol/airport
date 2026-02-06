@@ -1,6 +1,9 @@
 package models.planes;
 
-public abstract class Airplane {
+import interfaces.IFly;
+
+public abstract class Airplane implements IFly {
+
     private Long id;
     private String model;
 
@@ -11,9 +14,10 @@ public abstract class Airplane {
         this.model = model;
     }
 
-    public abstract void takeOff();
-
-    public abstract void land();
+    @Override
+    public String toString() {
+        return  id + model;
+    }
 
     public Long getId() {
         return id;

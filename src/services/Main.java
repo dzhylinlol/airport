@@ -1,83 +1,103 @@
 package services;
 
+import interfaces.IFly;
+import interfaces.IPerformDuty;
 import models.infrastructure.*;
 import models.people.FlightAttendant;
 import models.people.Passenger;
 import models.people.Person;
 import models.people.Pilot;
 import models.planes.Airplane;
+import models.planes.CargoPlane;
 import models.planes.PassengerPlane;
+import models.utilities.BaggageUtility;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-        System.out.println("==========Flight Preparation==========");
-
-        System.out.println("======1. Airports  creation: adding gates and terminals======");
+        System.out.println("\n1. Airports  creation: adding gates and terminals");
         Airport airportFrom = new Airport("WAW", "Chopin");
         Airport airportTo = new Airport("MSQ", "Minsk National Airport");
+        Airplane passengerPlane = new PassengerPlane(7456L, "HGG-4657", 746, 65333);
 
         Terminal terminalFrom = new Terminal("A");
-        Terminal terminalTo = new Terminal("B");
+        Gate gateFrom = new Gate(6);
+        terminalFrom.addGate(gateFrom);
         airportFrom.addTerminal(terminalFrom);
+
+        Terminal terminalTo = new Terminal("B");
+        Gate gateTo = new Gate(7);
+        terminalTo.addGate(gateTo);
         airportTo.addTerminal(terminalTo);
 
-        Gate gateFrom = new Gate(6);
-        Gate gateTo = new Gate(7);
-        terminalFrom.addGate(gateFrom);
-        terminalTo.addGate(gateTo);
+        System.out.println("Airports: FROM " + airportFrom + " TO " + airportTo);
 
-        System.out.println("Airport from: " + airportFrom);
-        System.out.println("Airport to: " + airportTo);
+        System.out.println("\n2.Adding crew");
 
-        System.out.println("======2.Adding crew,  passenger plane, composing flight=====");
+        Pilot pilot = new Pilot(1L, "Mike", "White", "pilot84574", 24, "KL35", "1st");
+        FlightAttendant attendant1 = new FlightAttendant(298L, "Zanna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
+        FlightAttendant attendant2 = new FlightAttendant(298L, "Anna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
 
-        Person pilot = new Pilot(1L, "Mike", "White","pilot84574", 24, "KL35", "1st");
-        FlightAttendant flightAttendant = new FlightAttendant(298L, "Sarah", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
-        Airplane passengerPlane = new PassengerPlane(7456L,"HGG-4657",746,65333);
-        Flight flight = new Flight("WM9875",gateFrom, (Pilot) pilot, passengerPlane, flightAttendant, new ArrayList<>(), terminalFrom);
+        System.out.println("pilot: " + pilot + "\nattendatnts: \n" + attendant1 + "\n" + attendant2);
 
+        System.out.println("\n3.Creating flight");
 
-        Ticket ticket1 = new Ticket("T1","WM9875", "14B");
-        Ticket ticket2 = new Ticket("T2","WM9875", "14C";
-        Ticket ticket3 = new Ticket("T3","WM9875", "14G");
-        Ticket ticket4 = new Ticket("T4","WM9875", "14H");
+        Flight flight = new Flight(87L, terminalFrom, gateFrom);
+        flight.setAirplane(passengerPlane);
+        flight.setPilot(pilot);
+        flight.addFlightAttendant(attendant1);
+        flight.addFlightAttendant(attendant2);
 
-//       ticket4.bookedBy(5L, "Maria", "Petrovna"); /// why do i need this?
-        System.out.println("Ticket 4: " + ticket4);
+        System.out.println("Flight created: " + flight);
 
-        Passenger passenger1 = new Passenger(876L, "Adam", "Lipski", ticket1.getNumber());
-        Passenger passenger1copy = new Passenger(878L, "Adam", "Lipski", ticket1.getNumber());
-        Passenger passenger2 = new Passenger(93L, "Denis", "Mckean", ticket3.getNumber());
+        System.out.println("\n4.Issuing Tickets: ");
 
-//       ticket3.bookedBy(passenger1);
-        System.out.println("Ticket 3: " + ticket3 + " " + passenger1);
-
-        System.out.println("Ticket" + ticket1.toString());
-        System.out.println(passenger1.toString());
-
+        Ticket ticket1 = new Ticket("T1", flight, "14B");
+        Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 25);
         passenger1.buyTicket(ticket1);
+
+        Ticket ticket2 = new Ticket("T2", flight, "14C");
+        Passenger passenger2 = new Passenger(2L, "Ewa", "Polska", 20);
         passenger2.buyTicket(ticket2);
 
-        flight.addPassenger(passenger1);
-        flight.addPassenger(passenger1copy);
-        flight.addPassenger(passenger2);
+        Ticket ticket3 = new Ticket("T3", flight, "14G");
+        Passenger passenger3 = new Passenger(3L, "Piotr", "Zapolski", 5);
+        passenger3.buyTicket(ticket3);
 
-        System.out.println("Airplane is prepared: " + flight);
+        Ticket ticket4 = new Ticket("T4", flight, "14H");
+        Passenger passenger4 = new Passenger(4L, "Anna", "Mitskewich", 10);
+        Passenger passenger4copy = new Passenger(4L, "Anna", "Mitskewich", 10);
+        passenger4.buyTicket(ticket4);
 
-        System.out.println(flight.getPassengers());
+        flight.addPassenger(passenger4copy);
 
-        System.out.println("Added Users = " + flight.getPassengers().toString());
+        System.out.println("Flight filled: " + flight.getPassengers());
 
-        System.out.println("Ticket" + ticket1.toString());
-        System.out.println("Passenger " + passenger1.toString());
+        System.out.println("\n5.Checking overweight:");
 
+        if (BaggageUtility.hasOverWeight(flight)) {
+            System.out.println("Flight baggage is OVER the limit!");
+        } else {
+            System.out.println("Flight baggage weight is OK");
+        }
+
+        System.out.println("\n6.Flight processing");
         flight.start();
+
+        IPerformDuty captain = new Pilot(99L, "Jack", "Vorobey", "captainkdwef", 33, "LKi66", "1st"); //
+        captain.performDuty(flight); // playing with interface
+
+        IPerformDuty flightAttendant1 = new FlightAttendant(29L, "Olga", "Bliss", "captainkdef", 3, List.of("English", "Polish", "Russian"), true); //
+        flightAttendant1.performDuty(flight);
+
         flight.finish();
 
+        System.out.println("Flight processed");
 
-
+        System.out.println("\nStart cargo flight:");
+        IFly airplane11 = new CargoPlane(88L, "fly123", 1230, 345.5);
+        airplane11.takeOff();
     }
 }

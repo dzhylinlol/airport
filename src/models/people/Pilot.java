@@ -1,8 +1,13 @@
 package models.people;
 
+
+import interfaces.IPerformDuty;
+import models.infrastructure.Flight;
+import models.planes.PassengerPlane;
+
 import java.util.Objects;
 
-public class Pilot extends CrewMember {
+public class Pilot extends CrewMember implements IPerformDuty {
 
     private String licenseNumber;
     private String rank;
@@ -41,6 +46,10 @@ public class Pilot extends CrewMember {
     @Override
     public String getRole() {
         return "Pilot (" + rank + "), License: " + licenseNumber;
+    }
+    @Override
+    public void performDuty(Flight flight) {
+        System.out.println("Pilot" + " " + getFirstName() + " " + getLastName() + " " + "operating the aircraft" + flight.getAirplane().getModel());
     }
 
     public String getLicenseNumber() {

@@ -1,9 +1,13 @@
 package models.people;
 
+import interfaces.IFly;
+import interfaces.IPerformDuty;
+import models.infrastructure.Flight;
+
 import java.util.List;
 import java.util.Objects;
 
-public class FlightAttendant extends CrewMember {
+public class FlightAttendant extends CrewMember implements IPerformDuty {
     private List<String> languages;
     private Boolean isPurser;
 
@@ -41,6 +45,13 @@ public class FlightAttendant extends CrewMember {
     @Override
     public String getRole() {
         return "Flight Attendant" + (isPurser ? " (Purser)" : "");
+    }
+
+    @Override
+    public void performDuty(Flight flight) {
+        System.out.println("Flight Attendant" + " " + getFirstName() + " " + getLastName() + " "
+                + "doing service onboard for " + flight.getAirplane().getModel()
+                + (isPurser ? " is a main FA " : " is a FA "));
     }
 
     public List<String> getLanguages() {

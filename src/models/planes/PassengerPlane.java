@@ -1,6 +1,10 @@
 package models.planes;
 
-public class PassengerPlane extends Airplane {
+import interfaces.IFly;
+import models.infrastructure.Flight;
+
+public class PassengerPlane extends Airplane implements IFly {
+
     private Integer capacity;
     private Integer baggageCapacityKg;
 
@@ -14,6 +18,13 @@ public class PassengerPlane extends Airplane {
         this.capacity = capacity;
         this.baggageCapacityKg = baggageCapacityKg;
     };
+
+    @Override
+    public String toString() {
+        return  " passenger plane {" +
+                super.toString() + '}';
+
+    }
 
     @Override
     public void takeOff() {
