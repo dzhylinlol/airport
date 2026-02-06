@@ -16,7 +16,7 @@ public abstract class Airplane implements IFly {
 
     @Override
     public String toString() {
-        return  id + model;
+        return  id + " - " + model;
     }
 
     public Long getId() {

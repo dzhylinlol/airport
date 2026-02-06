@@ -8,7 +8,8 @@ public class PassengerPlane extends Airplane implements IFly {
     private Integer capacity;
     private Integer baggageCapacityKg;
 
-    public PassengerPlane() {}
+    public PassengerPlane() {
+    }
 
     public PassengerPlane(Long id,
                           String model,
@@ -17,11 +18,13 @@ public class PassengerPlane extends Airplane implements IFly {
         super(id, model);
         this.capacity = capacity;
         this.baggageCapacityKg = baggageCapacityKg;
-    };
+    }
+
+    ;
 
     @Override
     public String toString() {
-        return  " passenger plane {" +
+        return " passenger plane {" +
                 super.toString() + '}';
 
     }

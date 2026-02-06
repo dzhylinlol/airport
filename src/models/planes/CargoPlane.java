@@ -5,7 +5,8 @@ public class CargoPlane extends Airplane {
     private Integer maxPayloadKg;
     private Double volumeCubicMeters;
 
-    public CargoPlane() {}
+    public CargoPlane() {
+    }
 
     public CargoPlane(Long id,
                       String model,
@@ -29,12 +30,15 @@ public class CargoPlane extends Airplane {
     public Integer getMaxPayloadKg() {
         return maxPayloadKg;
     }
+
     public void setMaxPayloadKg(Integer maxPayloadKg) {
         this.maxPayloadKg = maxPayloadKg;
     }
+
     public Double getVolumeCubicMeters() {
         return volumeCubicMeters;
     }
+
     public void setVolumeCubicMeters(Double volumeCubicMeters) {
         this.volumeCubicMeters = volumeCubicMeters;
     }

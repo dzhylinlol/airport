@@ -26,20 +26,11 @@ public class FlightAttendant extends CrewMember implements IPerformDuty {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        FlightAttendant flightAttendant = (FlightAttendant) o;
-
-        if (this.hashCode() != flightAttendant.hashCode()) return false;
-        return Objects.equals(languages, flightAttendant.languages) && Objects.equals(isPurser, flightAttendant.isPurser);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), languages, isPurser);
+    public String toString() {
+        return "Flight Attendant {" +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                (isPurser ? " (Purser)" : "");
     }
 
     @Override

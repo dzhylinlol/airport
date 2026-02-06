@@ -70,8 +70,8 @@ public class Main {
         Passenger passenger4 = new Passenger(4L, "Anna", "Mitskewich", 10);
         Passenger passenger4copy = new Passenger(4L, "Anna", "Mitskewich", 10);
         passenger4.buyTicket(ticket4);
-
-        flight.addPassenger(passenger4copy);
+//        passenger4copy.buyTicket(ticket4);// adding same passenger
+//        flight.addPassenger(passenger4copy);
 
         System.out.println("Flight filled: " + flight.getPassengers());
 

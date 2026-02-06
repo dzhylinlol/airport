@@ -27,20 +27,12 @@ public class Pilot extends CrewMember implements IPerformDuty {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Pilot pilot = (Pilot) o;
-
-        if (this.hashCode() != pilot.hashCode()) return false;
-        return Objects.equals(licenseNumber, pilot.licenseNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(licenseNumber);
+    public String toString() {
+        return "Pilot{" +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                '}';
     }
 
     @Override

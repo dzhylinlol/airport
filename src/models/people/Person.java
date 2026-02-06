@@ -29,12 +29,13 @@ public abstract class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Person person = (Person) o;
 
         if (this.hashCode() != person.hashCode()) return false;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName);
+        return Objects.equals(id, person.id)
+                && Objects.equals(firstName, person.firstName)
+                && Objects.equals(lastName, person.lastName);
     }
 
     @Override

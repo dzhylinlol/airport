@@ -29,8 +29,6 @@ public class Passenger extends Person {
         this.baggageWeightKG = baggageWeightKG;
     }
 
-
-
     @Override
     public String getRole() {
         return "Passenger";
@@ -40,24 +38,6 @@ public class Passenger extends Person {
     public String toString() {
         return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " "
                 + (ticket == null ? "without ticket" : ticket.getNumber());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Passenger passenger = (Passenger) o;
-
-        if (this.hashCode() != passenger.hashCode()) return false;
-
-        return Objects.equals(ticket, passenger.ticket);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), ticket);
     }
 
     public void buyTicket(Ticket ticket) {

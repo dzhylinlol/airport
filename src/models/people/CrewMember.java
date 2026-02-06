@@ -18,24 +18,6 @@ public abstract class CrewMember extends Person {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        CrewMember сrewMember = (CrewMember) o;
-
-        if (this.hashCode() != сrewMember.hashCode()) return false;
-        return Objects.equals(employeeId, сrewMember.employeeId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(employeeId);
-    }
-
-
     public String getEmployeeId() {
         return employeeId;
     }
