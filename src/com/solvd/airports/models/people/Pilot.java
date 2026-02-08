@@ -1,11 +1,8 @@
-package models.people;
+package com.solvd.airports.models.people;
 
 
-import interfaces.IPerformDuty;
-import models.infrastructure.Flight;
-import models.planes.PassengerPlane;
-
-import java.util.Objects;
+import com.solvd.airports.interfaces.IPerformDuty;
+import com.solvd.airports.models.infrastructure.Flight;
 
 public class Pilot extends CrewMember implements IPerformDuty {
 

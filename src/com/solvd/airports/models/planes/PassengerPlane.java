@@ -1,7 +1,7 @@
-package models.planes;
+package com.solvd.airports.models.planes;
 
-import interfaces.IFly;
-import models.infrastructure.Flight;
+import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
+import com.solvd.airports.interfaces.IFly;
 
 public class PassengerPlane extends Airplane implements IFly {
 
@@ -13,9 +13,10 @@ public class PassengerPlane extends Airplane implements IFly {
 
     public PassengerPlane(Long id,
                           String model,
+                          Boolean isBroken,
                           Integer capacity,
                           Integer baggageCapacityKg) {
-        super(id, model);
+        super(id, model,  isBroken);
         this.capacity = capacity;
         this.baggageCapacityKg = baggageCapacityKg;
     }
@@ -30,7 +31,10 @@ public class PassengerPlane extends Airplane implements IFly {
     }
 
     @Override
-    public void takeOff() {
+    public void takeOff() throws PlaneIsBrokenExceptionException {
+        if (this.getIsBroken()) {
+            throw new PlaneIsBrokenExceptionException("Passenger plane is broken, can not be in use!");
+        }
         System.out.println("Passenger plane " + super.getModel() + " starting engines");
     }
 

@@ -1,4 +1,4 @@
-package models.infrastructure;
+package com.solvd.airports.models.infrastructure;
 
 import java.util.ArrayList;
 import java.util.List;

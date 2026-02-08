@@ -1,8 +1,6 @@
-package models.people;
-import models.infrastructure.Flight;
-import models.infrastructure.Ticket;
-
-import java.util.Objects;
+package com.solvd.airports.models.people;
+import com.solvd.airports.models.infrastructure.Flight;
+import com.solvd.airports.models.infrastructure.Ticket;
 
 public class Passenger extends Person {
 

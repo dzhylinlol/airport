@@ -1,4 +1,4 @@
-package models.planes;
+package com.solvd.airports.models.planes;
 
 public class CargoPlane extends Airplane {
 

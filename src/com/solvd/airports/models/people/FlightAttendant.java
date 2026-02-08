@@ -1,11 +1,9 @@
-package models.people;
+package com.solvd.airports.models.people;
 
-import interfaces.IFly;
-import interfaces.IPerformDuty;
-import models.infrastructure.Flight;
+import com.solvd.airports.interfaces.IPerformDuty;
+import com.solvd.airports.models.infrastructure.Flight;
 
 import java.util.List;
-import java.util.Objects;
 
 public class FlightAttendant extends CrewMember implements IPerformDuty {
     private List<String> languages;

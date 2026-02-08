@@ -1,6 +1,4 @@
-package models.infrastructure;
-
-import models.people.Passenger;
+package com.solvd.airports.models.infrastructure;
 
 public class Ticket {
     private String number;

@@ -1,9 +1,10 @@
-package models.infrastructure;
+package com.solvd.airports.models.infrastructure;
 
-import models.people.FlightAttendant;
-import models.people.Passenger;
-import models.people.Pilot;
-import models.planes.Airplane;
+import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
+import com.solvd.airports.models.people.FlightAttendant;
+import com.solvd.airports.models.people.Passenger;
+import com.solvd.airports.models.people.Pilot;
+import com.solvd.airports.models.planes.Airplane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +90,10 @@ public class Flight {
         this.flightAttendants.add(flightAttendant);
     }
 
-    public void start() {
+    public void start() throws PlaneIsBrokenExceptionException {
         System.out.println("Starting Flight...");
         airplane.takeOff();
+
     };
 
     public void finish() {

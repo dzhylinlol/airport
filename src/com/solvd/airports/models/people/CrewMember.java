@@ -1,6 +1,4 @@
-package models.people;
-
-import java.util.Objects;
+package com.solvd.airports.models.people;
 
 public abstract class CrewMember extends Person {
     private String employeeId;

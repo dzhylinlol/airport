@@ -1,26 +1,25 @@
-package services;
+package com.solvd.airports.services;
 
-import interfaces.IFly;
-import interfaces.IPerformDuty;
-import models.infrastructure.*;
-import models.people.FlightAttendant;
-import models.people.Passenger;
-import models.people.Person;
-import models.people.Pilot;
-import models.planes.Airplane;
-import models.planes.CargoPlane;
-import models.planes.PassengerPlane;
-import models.utilities.BaggageUtility;
+import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
+import com.solvd.airports.interfaces.IFly;
+import com.solvd.airports.interfaces.IPerformDuty;
+import com.solvd.airports.models.infrastructure.*;
+import com.solvd.airports.models.people.FlightAttendant;
+import com.solvd.airports.models.people.Passenger;
+import com.solvd.airports.models.people.Pilot;
+import com.solvd.airports.models.planes.Airplane;
+import com.solvd.airports.models.planes.CargoPlane;
+import com.solvd.airports.models.planes.PassengerPlane;
+import com.solvd.airports.models.utilities.BaggageUtility;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         System.out.println("\n1. Airports  creation: adding gates and terminals");
         Airport airportFrom = new Airport("WAW", "Chopin");
         Airport airportTo = new Airport("MSQ", "Minsk National Airport");
-        Airplane passengerPlane = new PassengerPlane(7456L, "HGG-4657", 746, 65333);
+        Airplane passengerPlane = new PassengerPlane(7456L, "HGG-4657", false, 65333, 746);
 
         Terminal terminalFrom = new Terminal("A");
         Gate gateFrom = new Gate(6);
@@ -84,20 +83,24 @@ public class Main {
         }
 
         System.out.println("\n6.Flight processing");
-        flight.start();
+        try {
+            flight.start();
+            IPerformDuty captain = new Pilot(99L, "Jack", "Vorobey", "captainkdwef", 33, "LKi66", "1st"); //
+            captain.performDuty(flight); // playing with interface
 
-        IPerformDuty captain = new Pilot(99L, "Jack", "Vorobey", "captainkdwef", 33, "LKi66", "1st"); //
-        captain.performDuty(flight); // playing with interface
+            IPerformDuty flightAttendant1 = new FlightAttendant(29L, "Olga", "Bliss", "captainkdef", 3, List.of("English", "Polish", "Russian"), true); //
+            flightAttendant1.performDuty(flight);
 
-        IPerformDuty flightAttendant1 = new FlightAttendant(29L, "Olga", "Bliss", "captainkdef", 3, List.of("English", "Polish", "Russian"), true); //
-        flightAttendant1.performDuty(flight);
+            flight.finish();
 
-        flight.finish();
+            System.out.println("Flight processed");
 
-        System.out.println("Flight processed");
+        } catch (PlaneIsBrokenExceptionException e) {
+            System.out.println("Airplane is broken! We can not strt flight");
+        }
 
         System.out.println("\nStart cargo flight:");
         IFly airplane11 = new CargoPlane(88L, "fly123", 1230, 345.5);
-        airplane11.takeOff();
+//        airplane11.takeOff();
     }
 }

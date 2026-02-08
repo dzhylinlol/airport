@@ -1,17 +1,24 @@
-package models.planes;
+package com.solvd.airports.models.planes;
 
-import interfaces.IFly;
+import com.solvd.airports.interfaces.IFly;
 
 public abstract class Airplane implements IFly {
 
     private Long id;
     private String model;
+    private Boolean isBroken;
 
     public Airplane() {};
 
     public Airplane(Long id, String model) {
         this.id = id;
         this.model = model;
+    }
+
+    public Airplane(Long id, String model, Boolean isBroken) {
+        this.id = id;
+        this.model = model;
+        this.isBroken = isBroken;
     }
 
     @Override
@@ -33,6 +40,14 @@ public abstract class Airplane implements IFly {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public Boolean getIsBroken() {
+        return isBroken;
+    }
+
+    public void setIsBroken(Boolean isBroken) {
+        this.isBroken = isBroken;
     }
 
 }

@@ -1,4 +1,4 @@
-package models.people;
+package com.solvd.airports.models.people;
 
 import java.util.Objects;
 

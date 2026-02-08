@@ -1,7 +1,7 @@
-package models.utilities;
+package com.solvd.airports.models.utilities;
 
-import models.infrastructure.Flight;
-import models.people.Passenger;
+import com.solvd.airports.models.infrastructure.Flight;
+import com.solvd.airports.models.people.Passenger;
 
 import java.util.List;
 

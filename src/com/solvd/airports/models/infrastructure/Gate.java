@@ -1,4 +1,4 @@
-package models.infrastructure;
+package com.solvd.airports.models.infrastructure;
 
 public class Gate {
     private Integer number;// nullable
