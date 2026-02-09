@@ -1,19 +1,23 @@
 package com.solvd.airports.models.infrastructure;
 
+import com.solvd.airports.models.people.Passenger;
+import com.solvd.airports.models.planes.Airplane;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Airport {
     private String code;
     private String name;
-    private List <Terminal> terminals;
+    private List<Terminal> terminals = new ArrayList<>();
+    private List<Gate> gates = new ArrayList<>();
 
     public Airport() {};
 
     public Airport(String code, String name) {
         this.code = code;
         this.name = name;
-        this.terminals = new ArrayList<>();
     }
 
     @Override
@@ -21,17 +25,7 @@ public class Airport {
         return "Airport {" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", terminals=" + terminals +
                 '}';
-    }
-
-    public void addTerminal(String terminalName) {
-        Terminal terminal = new Terminal(terminalName);
-        terminals.add(terminal);
-
-    }
-    public void addTerminal(Terminal terminal) {
-        terminals.add(terminal);
     }
 
     public String getCode() {
@@ -49,13 +43,17 @@ public class Airport {
     public void setName(String name) {
         this.name = name;
     }
-
     public List<Terminal> getTerminals() {
         return terminals;
     }
-
     public void setTerminals(List<Terminal> terminals) {
         this.terminals = terminals;
+    }
+    public List<Gate> getGates() {
+        return gates;
+    }
+    public void setGates(List<Gate> gates) {
+        this.gates = gates;
     }
 }
 

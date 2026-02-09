@@ -1,6 +1,8 @@
 package com.solvd.airports.models.planes;
 
-public class CargoPlane extends Airplane {
+import com.solvd.airports.interfaces.IFly;
+
+public class CargoPlane extends Airplane implements IFly {
 
     private Integer maxPayloadKg;
     private Double volumeCubicMeters;

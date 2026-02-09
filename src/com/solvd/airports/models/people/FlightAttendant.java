@@ -18,15 +18,14 @@ public class FlightAttendant extends CrewMember implements IPerformDuty {
                            Integer yearsOfExperience,
                            List<String> languages,
                            Boolean isPurser) {
-        super(id, firstName, lastName, employeeId, yearsOfExperience);
+        super(id, firstName, lastName,employeeId, yearsOfExperience);
         this.languages = languages;
         this.isPurser = isPurser;
     }
 
     @Override
     public String toString() {
-        return "Flight Attendant {" +
-                "firstName='" + getFirstName() + '\'' +
+        return  "firstName='" + getFirstName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 (isPurser ? " (Purser)" : "");
     }

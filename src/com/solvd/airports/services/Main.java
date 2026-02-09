@@ -1,5 +1,6 @@
 package com.solvd.airports.services;
 
+import com.solvd.airports.exceptions.PersonHasCoronaVirusException;
 import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
 import com.solvd.airports.interfaces.IFly;
 import com.solvd.airports.interfaces.IPerformDuty;
@@ -15,85 +16,72 @@ import com.solvd.airports.models.utilities.BaggageUtility;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args)  {
-        System.out.println("\n1. Airports  creation: adding gates and terminals");
+    public static void main(String[] args) throws PersonHasCoronaVirusException {
+        System.out.println("\n1. Flight is scheduled: Route...");
         Airport airportFrom = new Airport("WAW", "Chopin");
         Airport airportTo = new Airport("MSQ", "Minsk National Airport");
-        Airplane passengerPlane = new PassengerPlane(7456L, "HGG-4657", false, 65333, 746);
+        Flight flight = new Flight(13L);
+        System.out.println("Airports: FROM " + airportFrom + " TO " + airportTo);
 
+
+        System.out.println("\n2. Crew assigned to the Airplane...");
+        PassengerPlane passengerPlane = new PassengerPlane(7456L, "Boeing-4657", 20, 746);
+        Pilot pilot = new Pilot(1L, "Mike", "White", "pilot84574", 24, "KL35", "1st");
+        FlightAttendant attendant1 = new FlightAttendant(298L, "Zanna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
+        FlightAttendant attendant2 = new FlightAttendant(298L, "Anna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), false);
+        passengerPlane.setPilot(pilot);
+        passengerPlane.setFlightAttendants(List.of(attendant1, attendant2));
+
+        System.out.println("Airplane: " + passengerPlane);
+
+        System.out.println("\n3. Terminal and Gate Assignment to the Flight... ");
         Terminal terminalFrom = new Terminal("A");
         Gate gateFrom = new Gate(6);
         terminalFrom.addGate(gateFrom);
-        airportFrom.addTerminal(terminalFrom);
 
-        Terminal terminalTo = new Terminal("B");
-        Gate gateTo = new Gate(7);
-        terminalTo.addGate(gateTo);
-        airportTo.addTerminal(terminalTo);
+        flight.setTerminal(terminalFrom);
+        flight.setGate(terminalFrom.getGates().getFirst());
 
-        System.out.println("Airports: FROM " + airportFrom + " TO " + airportTo);
+        System.out.println("Flight is assigned with " + flight.getTerminal()  + " to start from...");
 
-        System.out.println("\n2.Adding crew");
-
-        Pilot pilot = new Pilot(1L, "Mike", "White", "pilot84574", 24, "KL35", "1st");
-        FlightAttendant attendant1 = new FlightAttendant(298L, "Zanna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
-        FlightAttendant attendant2 = new FlightAttendant(298L, "Anna", "Black", "fa18373", 12, List.of("English", "Polish", "Russian"), true);
-
-        System.out.println("pilot: " + pilot + "\nattendatnts: \n" + attendant1 + "\n" + attendant2);
-
-        System.out.println("\n3.Creating flight");
-
-        Flight flight = new Flight(87L, terminalFrom, gateFrom);
+        System.out.println("\n4. Airplane is assigned to the FLight, Boarding starts...");
         flight.setAirplane(passengerPlane);
-        flight.setPilot(pilot);
-        flight.addFlightAttendant(attendant1);
-        flight.addFlightAttendant(attendant2);
 
-        System.out.println("Flight created: " + flight);
-
-        System.out.println("\n4.Issuing Tickets: ");
-
-        Ticket ticket1 = new Ticket("T1", flight, "14B");
+        Ticket ticket1 = new Ticket("T1", flight.getId(), "14B");
         Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 25);
-        passenger1.buyTicket(ticket1);
+        passenger1.setTicket(ticket1);
 
-        Ticket ticket2 = new Ticket("T2", flight, "14C");
+        Ticket ticket2 = new Ticket("T2", flight.getId(), "14C");
         Passenger passenger2 = new Passenger(2L, "Ewa", "Polska", 20);
-        passenger2.buyTicket(ticket2);
+        passenger2.setTicket(ticket2);
 
-        Ticket ticket3 = new Ticket("T3", flight, "14G");
+        Ticket ticket3 = new Ticket("T3", flight.getId(), "14G");
         Passenger passenger3 = new Passenger(3L, "Piotr", "Zapolski", 5);
-        passenger3.buyTicket(ticket3);
+        passenger3.setTicket(ticket3);
 
-        Ticket ticket4 = new Ticket("T4", flight, "14H");
+        Ticket ticket4 = new Ticket("T4", flight.getId(), "14H");
         Passenger passenger4 = new Passenger(4L, "Anna", "Mitskewich", 10);
-        Passenger passenger4copy = new Passenger(4L, "Anna", "Mitskewich", 10);
-        passenger4.buyTicket(ticket4);
-//        passenger4copy.buyTicket(ticket4);// adding same passenger
-//        flight.addPassenger(passenger4copy);
+        passenger4.setTicket(ticket4);
 
-        System.out.println("Flight filled: " + flight.getPassengers());
+        passengerPlane.addPassengers(List.of(passenger1, passenger2, passenger3, passenger4));
 
-        System.out.println("\n5.Checking overweight:");
+        System.out.println("Airplane boarded with passengers: " + passengerPlane.getPassengers());
 
-        if (BaggageUtility.hasOverWeight(flight)) {
+        System.out.println("\n5. Checking overweight:");
+
+        if (BaggageUtility.hasOverWeight(passengerPlane)) {
             System.out.println("Flight baggage is OVER the limit!");
         } else {
             System.out.println("Flight baggage weight is OK");
         }
 
-        System.out.println("\n6.Flight processing");
+        System.out.println("\n6. Flight processing...");
         try {
             flight.start();
-            IPerformDuty captain = new Pilot(99L, "Jack", "Vorobey", "captainkdwef", 33, "LKi66", "1st"); //
-            captain.performDuty(flight); // playing with interface
-
-            IPerformDuty flightAttendant1 = new FlightAttendant(29L, "Olga", "Bliss", "captainkdef", 3, List.of("English", "Polish", "Russian"), true); //
-            flightAttendant1.performDuty(flight);
 
             flight.finish();
 
-            System.out.println("Flight processed");
+            System.out.println("Flight processed...");
 
         } catch (PlaneIsBrokenExceptionException e) {
             System.out.println("Airplane is broken! We can not strt flight");
@@ -103,4 +91,4 @@ public class Main {
         IFly airplane11 = new CargoPlane(88L, "fly123", 1230, 345.5);
 //        airplane11.takeOff();
     }
-}
+} //System.out.println("Flight created: " + flight);

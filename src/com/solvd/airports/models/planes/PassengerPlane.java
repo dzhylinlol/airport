@@ -1,22 +1,29 @@
 package com.solvd.airports.models.planes;
 
+import com.solvd.airports.exceptions.PersonHasCoronaVirusException;
 import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
 import com.solvd.airports.interfaces.IFly;
+import com.solvd.airports.models.people.FlightAttendant;
+import com.solvd.airports.models.people.Passenger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PassengerPlane extends Airplane implements IFly {
 
     private Integer capacity;
     private Integer baggageCapacityKg;
+    private List<FlightAttendant> flightAttendants;
+    private List<Passenger> passengers;
 
     public PassengerPlane() {
     }
 
     public PassengerPlane(Long id,
                           String model,
-                          Boolean isBroken,
                           Integer capacity,
                           Integer baggageCapacityKg) {
-        super(id, model,  isBroken);
+        super(id, model);
         this.capacity = capacity;
         this.baggageCapacityKg = baggageCapacityKg;
     }
@@ -25,8 +32,8 @@ public class PassengerPlane extends Airplane implements IFly {
 
     @Override
     public String toString() {
-        return " passenger plane {" +
-                super.toString() + '}';
+        return "Passenger plane: " +
+                super.toString() + "\nPilot: " + getPilot() + "\nAttendants: " + flightAttendants;
 
     }
 
@@ -58,4 +65,56 @@ public class PassengerPlane extends Airplane implements IFly {
     public void setBaggageCapacityKg(Integer baggageCapacityKg) {
         this.baggageCapacityKg = baggageCapacityKg;
     }
+
+    public List<FlightAttendant> getFlightAttendants() {
+        return flightAttendants;
+    }
+
+    public void setFlightAttendants(List<FlightAttendant> flightAttendants) {
+        this.flightAttendants = flightAttendants;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+
+    public void addPassenger(Passenger newPassenger) throws PersonHasCoronaVirusException {
+        if (newPassenger.getHasCorona()) {
+            throw new PersonHasCoronaVirusException("Can't add passenger to the airplane!");
+        }
+
+        if (this.passengers == null) {
+            this.passengers = new ArrayList<>();
+            passengers.add(newPassenger);
+            return;
+        }
+
+        boolean hasSamePassenger = false;
+        for (Passenger oldPassenger : passengers) {
+            if (oldPassenger.equals(newPassenger)) {
+                hasSamePassenger = true;
+            }
+        }
+
+        if (hasSamePassenger == false) {
+            this.passengers.add(newPassenger);
+        }
+    }
+
+    public void addPassengers(List<Passenger> newPassengers) throws PersonHasCoronaVirusException {
+        for (Passenger newOne : newPassengers) {
+            this.addPassenger(newOne);
+        }
+    }
+
+    public void addFlightAttendant(FlightAttendant flightAttendant) {
+        if (this.flightAttendants == null) {
+            this.flightAttendants = new ArrayList<>();
+        }
+        this.flightAttendants.add(flightAttendant);
+    }
+
 }
+
+

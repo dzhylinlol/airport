@@ -1,5 +1,5 @@
 package com.solvd.airports.models.people;
-import com.solvd.airports.models.infrastructure.Flight;
+
 import com.solvd.airports.models.infrastructure.Ticket;
 
 public class Passenger extends Person {
@@ -7,7 +7,10 @@ public class Passenger extends Person {
     private Ticket ticket;
     private Integer baggageWeightKG;
 
-    public Passenger() {};
+    public Passenger() {
+    }
+
+    ;
 
     public Passenger(Long id,
                      String firstName,
@@ -38,12 +41,6 @@ public class Passenger extends Person {
                 + (ticket == null ? "without ticket" : ticket.getNumber());
     }
 
-    public void buyTicket(Ticket ticket) {
-        this.ticket = ticket;
-        Flight flight = ticket.getFlight();
-        flight.addPassenger(this);
-    }
-
     public Ticket getTicket() {
         return ticket;
     }
@@ -55,7 +52,9 @@ public class Passenger extends Person {
     public Integer getBaggageWeightKG() {
         return baggageWeightKG;
     }
+
     public void setBaggageWeightKG(Integer baggageWeightKG) {
         this.baggageWeightKG = baggageWeightKG;
     }
+
 }

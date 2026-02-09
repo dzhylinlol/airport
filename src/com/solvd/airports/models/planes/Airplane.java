@@ -1,12 +1,18 @@
 package com.solvd.airports.models.planes;
 
 import com.solvd.airports.interfaces.IFly;
+import com.solvd.airports.models.people.FlightAttendant;
+import com.solvd.airports.models.people.Passenger;
+import com.solvd.airports.models.people.Pilot;
+
+import java.util.List;
 
 public abstract class Airplane implements IFly {
 
     private Long id;
     private String model;
-    private Boolean isBroken;
+    private Boolean isBroken = false;
+    private Pilot pilot;
 
     public Airplane() {};
 
@@ -15,15 +21,9 @@ public abstract class Airplane implements IFly {
         this.model = model;
     }
 
-    public Airplane(Long id, String model, Boolean isBroken) {
-        this.id = id;
-        this.model = model;
-        this.isBroken = isBroken;
-    }
-
     @Override
     public String toString() {
-        return  id + " - " + model;
+        return model;
     }
 
     public Long getId() {
@@ -50,5 +50,12 @@ public abstract class Airplane implements IFly {
         this.isBroken = isBroken;
     }
 
+    public Pilot getPilot() {
+        return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
+    }
 }
 

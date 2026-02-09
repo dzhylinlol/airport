@@ -18,15 +18,14 @@ public class Pilot extends CrewMember implements IPerformDuty {
                  Integer yearsOfExperience,
                  String licenseNumber,
                  String rank) {
-        super(id, firstName, lastName, employeeId, yearsOfExperience);
+        super(id, firstName, lastName,employeeId, yearsOfExperience);
         this.licenseNumber = licenseNumber;
         this.rank = rank;
     }
 
     @Override
     public String toString() {
-        return "Pilot{" +
-                "firstName='" + getFirstName() + '\'' +
+        return "firstName='" + getFirstName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 ", licenseNumber='" + licenseNumber + '\'' +
                 '}';
@@ -37,7 +36,7 @@ public class Pilot extends CrewMember implements IPerformDuty {
         return "Pilot (" + rank + "), License: " + licenseNumber;
     }
     @Override
-    public void performDuty(Flight flight) {
+    public void performDuty (Flight flight) {
         System.out.println("Pilot" + " " + getFirstName() + " " + getLastName() + " " + "operating the aircraft" + flight.getAirplane().getModel());
     }
 
