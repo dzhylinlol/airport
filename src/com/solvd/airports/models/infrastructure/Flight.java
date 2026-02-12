@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Flight {
     private Long id;
-    private Gate gate;
-    private Terminal terminal;
+    private Airport airportFrom;
+    private Airport airportTo;
     private Airplane airplane;
 
     public Flight() {
@@ -23,31 +23,20 @@ public class Flight {
     }
 
     public Flight(Long id,
-                  Terminal terminal,
-                  Gate gate) {
+                  Airport airportFrom,
+                  Airport airportTo) {
         this.id = id;
-        this.gate = gate;
-        this.terminal = terminal;
-    }
+        this.airportFrom = airportFrom;
+        this.airportTo = airportTo;
 
-    public Flight(Long id,
-                  Gate gate,
-                  Airplane airplane,
-
-                  Terminal terminal) {
-        this.id = id;
-        this.gate = gate;
-
-        this.terminal = terminal;
-        this.airplane = airplane;
     }
 
     @Override
     public String toString() {
         return "Flight {" +
                 "id='" + id + '\'' +
-                ", terminal =" + terminal +
-                ", gate='" + gate + '\'' +
+                ", airportFrom=" + airportFrom +
+                ", airportTo=" + airportTo +
                 ", airplane='" + airplane + '\'' +
                 '}';
 
@@ -111,20 +100,18 @@ public class Flight {
         this.airplane = airplane;
     }
 
-    public Gate getGate() {
-        return gate;
+    public Airport getAirportFrom() {
+        return airportFrom;
     }
 
-    public void setGate(Gate gate) {
-        this.gate = gate;
-    }
+   public void setAirportFrom(Airport airportFrom) {
+        this.airportFrom = airportFrom;
+   }
 
-    public Terminal getTerminal() {
-        return terminal;
+    public void setAirportTo(Airport airportTo) {
+        this.airportTo = airportTo;
     }
-
-    public void setTerminal(Terminal terminal) {
-        this.terminal = terminal;
+    public Airport getAirportTo() {
+        return airportTo;
     }
-
 }

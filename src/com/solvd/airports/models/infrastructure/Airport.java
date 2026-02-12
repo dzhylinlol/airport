@@ -11,13 +11,19 @@ public class Airport {
     private String code;
     private String name;
     private List<Terminal> terminals = new ArrayList<>();
-    private List<Gate> gates = new ArrayList<>();
 
     public Airport() {};
 
     public Airport(String code, String name) {
         this.code = code;
         this.name = name;
+    }
+
+    public Airport(String code, String name, List<Terminal> terminals) {
+        this.code = code;
+        this.name = name;
+        this.terminals = terminals;
+
     }
 
     @Override
@@ -40,20 +46,12 @@ public class Airport {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
     public List<Terminal> getTerminals() {
         return terminals;
     }
+
     public void setTerminals(List<Terminal> terminals) {
         this.terminals = terminals;
-    }
-    public List<Gate> getGates() {
-        return gates;
-    }
-    public void setGates(List<Gate> gates) {
-        this.gates = gates;
     }
 }
 

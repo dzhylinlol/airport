@@ -6,20 +6,30 @@ public class Passenger extends Person {
 
     private Ticket ticket;
     private Integer baggageWeightKG;
+    private boolean hasCorona = false;
 
     public Passenger() {
     }
-
-    ;
 
     public Passenger(Long id,
                      String firstName,
                      String lastName,
                      Ticket ticket,
-                     Integer baggageWeightKG) {
+                     Integer baggageWeightKG,
+                     boolean hasCorona) {
         super(id, firstName, lastName);
         this.ticket = ticket;
         this.baggageWeightKG = baggageWeightKG;
+    }
+
+    public Passenger(Long id,
+                     String firstName,
+                     String lastName,
+                     Integer baggageWeightKG,
+                     boolean hasCorona) {
+        super(id, firstName, lastName);
+        this.baggageWeightKG = baggageWeightKG;
+        this.hasCorona = hasCorona;
     }
 
     public Passenger(Long id,
@@ -55,6 +65,13 @@ public class Passenger extends Person {
 
     public void setBaggageWeightKG(Integer baggageWeightKG) {
         this.baggageWeightKG = baggageWeightKG;
+    }
+
+    public boolean getHasCorona() {
+        return hasCorona;
+    }
+    public void setHasCorona(boolean hasCorona) {
+        this.hasCorona = hasCorona;
     }
 
 }

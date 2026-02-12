@@ -1,7 +1,6 @@
-package com.solvd.airports.models.utilities;
+package com.solvd.airports.utilities;
 
 import com.solvd.airports.exceptions.BaggageOverweightException;
-import com.solvd.airports.models.infrastructure.Flight;
 import com.solvd.airports.models.people.Passenger;
 import com.solvd.airports.models.planes.PassengerPlane;
 
@@ -21,8 +20,7 @@ public class BaggageUtility {
        return baggageSum > MAX_CAPACITY_KG;
     }
 
-
-    public static void checkOverWeight(PassengerPlane passengerPlane) {
+    public static void checkOverWeight(PassengerPlane passengerPlane) throws BaggageOverweightException {
         if (hasOverWeight(passengerPlane)) {
             throw new BaggageOverweightException("Baggage Overweight!");
         }

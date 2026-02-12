@@ -7,7 +7,6 @@ public abstract class Person {
     private Long id;
     private String firstName;
     private String lastName;
-    private Boolean hasCorona = false;
 
     public Person() {};
 
@@ -64,13 +63,6 @@ public abstract class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Boolean getHasCorona() {
-        return hasCorona;
-    }
-    public void setHasCorona(Boolean hasCorona){
-        this.hasCorona = hasCorona;
     }
 
 }

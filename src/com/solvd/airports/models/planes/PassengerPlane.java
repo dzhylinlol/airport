@@ -79,11 +79,7 @@ public class PassengerPlane extends Airplane implements IFly {
     }
 
 
-    public void addPassenger(Passenger newPassenger) throws PersonHasCoronaVirusException {
-        if (newPassenger.getHasCorona()) {
-            throw new PersonHasCoronaVirusException("Can't add passenger to the airplane!");
-        }
-
+    public void addPassenger(Passenger newPassenger) {
         if (this.passengers == null) {
             this.passengers = new ArrayList<>();
             passengers.add(newPassenger);
@@ -102,7 +98,7 @@ public class PassengerPlane extends Airplane implements IFly {
         }
     }
 
-    public void addPassengers(List<Passenger> newPassengers) throws PersonHasCoronaVirusException {
+    public void addPassengers(List<Passenger> newPassengers) {
         for (Passenger newOne : newPassengers) {
             this.addPassenger(newOne);
         }
@@ -113,6 +109,10 @@ public class PassengerPlane extends Airplane implements IFly {
             this.flightAttendants = new ArrayList<>();
         }
         this.flightAttendants.add(flightAttendant);
+    }
+
+    public void removePassenger(Passenger passenger) {
+        this.passengers.remove(passenger);
     }
 
 }
