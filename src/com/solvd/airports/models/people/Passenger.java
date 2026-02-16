@@ -47,8 +47,8 @@ public class Passenger extends Person {
 
     @Override
     public String toString() {
-        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " "
-                + (ticket == null ? "without ticket" : ticket.getNumber());
+        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " ";
+//                + (ticket == null ? "without ticket" : ticket.getNumber());
     }
 
     public Ticket getTicket() {

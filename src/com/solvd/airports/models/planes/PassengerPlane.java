@@ -7,7 +7,9 @@ import com.solvd.airports.models.people.FlightAttendant;
 import com.solvd.airports.models.people.Passenger;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
 
 public class PassengerPlane extends Airplane implements IFly {
 
@@ -98,7 +100,7 @@ public class PassengerPlane extends Airplane implements IFly {
         }
     }
 
-    public void addPassengers(List<Passenger> newPassengers) {
+    public void addPassengers(Collection<Passenger> newPassengers) {
         for (Passenger newOne : newPassengers) {
             this.addPassenger(newOne);
         }

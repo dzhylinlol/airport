@@ -3,21 +3,21 @@ package com.solvd.airports.models.infrastructure;
 public class Ticket {
     private String number;
     private Long flightId;
-    private String seatNumber;
+    private String seat;
 
     public Ticket() {};
 
     public Ticket(String number,
                   Long flightId,
-                  String seatNumber){
+                  String seat){
         this.number = number;
         this.flightId = flightId;
-        this.seatNumber = seatNumber;
+        this.seat = seat;
     }
 
     @Override
     public String toString() {
-        return "Ticket: " + number + " " + seatNumber ;
+        return "Ticket: " + number + " " + seat;
     }
 
     public String getNumber() {
@@ -36,12 +36,12 @@ public class Ticket {
 //        this.flight = flight;
 //    }
 
-    public String getSeatNumber() {
-        return seatNumber;
+    public String getSeat() {
+        return seat;
     }
 
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
 
 }

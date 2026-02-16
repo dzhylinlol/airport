@@ -2,7 +2,6 @@
 package com.solvd.airports.models.people;
 
 import com.solvd.airports.exceptions.PassengerHasNoTicketException;
-import com.solvd.airports.models.planes.PassengerPlane;
 
 import java.util.List;
 
@@ -36,8 +35,6 @@ public class CheckInAgent extends Person {
     public void process(Passenger passenger) throws PassengerHasNoTicketException {
         if (passenger.getTicket() == null) {
             throw new PassengerHasNoTicketException("User does not have a ticket, can not proceed with security check");
-        } else {
-            passenger.getTicket().setSeatNumber("A2");
         }
     }
 

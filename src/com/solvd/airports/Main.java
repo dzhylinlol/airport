@@ -10,8 +10,7 @@ import com.solvd.airports.models.people.*;
 import com.solvd.airports.models.planes.PassengerPlane;
 import com.solvd.airports.utilities.BaggageUtility;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -23,14 +22,22 @@ public class Main {
         addCrewToPlane(passengerPlane);
 
         List<Passenger> passengers = createPassengers();
-        List<Ticket> tickets = createTickets(flight);
+        List<Ticket> tickets = createTickets(flight.getId(), passengerPlane.getCapacity());
 
-        assignTicketsToPassengers(passengers, tickets);
+        Map<Long, Ticket> assignments = assignTicketsToPassengers(passengers, tickets);
+        for (Map.Entry<Long, Ticket> entry : assignments.entrySet()) {
+            System.out.println("Passenger ID: " + entry.getKey());
+            System.out.println("Ticket: " + entry.getValue());
+        }
 
-        checkCorona(passengers);
-        checkInPassengers(passengers);
+        LinkedList<Passenger> passengersChecked = new LinkedList<>(passengers);
+        checkCorona(passengersChecked);
+        checkInPassengers(passengersChecked);
 
-        System.out.println("Passengers who managed to get to the Plane = " + passengers);
+        System.out.println("Passengers who managed to get to the Plane > ");
+        for (Passenger passenger : passengersChecked) {
+            System.out.println(passenger + " " + passenger.getTicket());
+        }
 
         passengerPlane.addPassengers(passengers);
         flight.setAirplane(passengerPlane);
@@ -41,9 +48,9 @@ public class Main {
         Weather weather1 = Weather.SUNNY;
         checkWeather(weather1);
 
-        // check baggage
+        checkOverWeight(passengerPlane);
 
-        System.out.println("\n6. Flight processing...");
+        System.out.println("\n9. Flight processing...");
         try {
             flight.start();
         } catch (PlaneIsBrokenExceptionException e) {
@@ -83,6 +90,7 @@ public class Main {
     }
 
     public static List<Passenger> createPassengers() {
+        System.out.println("\n3. Passengers gathering for the flight...");
         List<Passenger> passengers = new ArrayList<>();
 
         Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 25, false);
@@ -104,37 +112,63 @@ public class Main {
         return passengers;
     }
 
-    public static List<Ticket> createTickets(Flight flight) {
-        Ticket ticket1 = new Ticket("T1", flight.getId(), "14B");
-        Ticket ticket2 = new Ticket("T2", flight.getId(), "14C");
-        Ticket ticket3 = new Ticket("T3", flight.getId(), "14G");
-        Ticket ticket4 = new Ticket("T4", flight.getId(), "14H");
-        Ticket ticket5 = new Ticket("T5", flight.getId(), "14I");
-        return List.of(ticket1, ticket2, ticket3, ticket4, ticket5);
+    public static List<Ticket> createTickets(Long flightId, int ticketCount) {
+        System.out.println("\n4. Tickets prepared based of passenger plane capacity...");
 
-    }
+        List<Ticket> tickets = new ArrayList<>();
+        Set<String> usedSeats = new HashSet<>();
 
-    public static void assignTicketsToPassengers(List<Passenger> passengers, List<Ticket> tickets) {
-        int limit = Math.min(passengers.size(), tickets.size());
-        for (int i = 0; i < limit; i = i + 1) {
-            passengers.get(i).setTicket(tickets.get(i));
+        int seatNumber = 1;
+        while (tickets.size() < ticketCount) {
+            String seat = "A" + seatNumber;
+            String number = "T" + seatNumber;
+            seatNumber++;
+
+            if (usedSeats.add(seat)) {
+                Ticket ticket = new Ticket(number, flightId, seat);
+                tickets.add(ticket);
+            }
         }
+        return tickets;
     }
 
-    public static void checkCorona(List<Passenger> passengers) {
+    public static Map<Long, Ticket> assignTicketsToPassengers(List<Passenger> passengers, List<Ticket> tickets) {
+        System.out.println("\n5. Passengers 'buy' tickets...");
+
+        Map<Long, Ticket> passengerTickets = new HashMap<>();
+        int i = 0;
+
+        for (Passenger passenger : passengers) {
+            if (i >= tickets.size()) {
+                break;
+            }
+            Ticket ticket = tickets.get(i);
+            passengerTickets.put(passenger.getId(), ticket);
+            passenger.setTicket(ticket);
+            i++;
+        }
+        return passengerTickets;
+    }
+
+    public static void checkCorona(Queue<Passenger> passengers) {
+        System.out.println("\n6. Corona check...");
+
         SecurityAgent securityAgent = new SecurityAgent();
-        for (int i = 0; i < passengers.size(); i++) {
-            Passenger passenger = passengers.get(i);
+        int originalSize = passengers.size();
+
+        for (int i = 0; i < originalSize; i++) {
+            Passenger passenger = passengers.poll();
             try {
                 securityAgent.checkForCorona(passenger);
+                passengers.add(passenger);
             } catch (PersonHasCoronaVirusException e) {
-                passengers.remove(i);
-                i--;
+                System.out.println(passenger + " is sick");
             }
         }
     }
 
     public static void checkInPassengers(List<Passenger> passengers) {
+        System.out.println("\n7. Ticket check...");
         CheckInAgent checkInAgent = new CheckInAgent();
         for (int i = 0; i < passengers.size(); i++) {
             Passenger passenger = passengers.get(i);
@@ -147,7 +181,19 @@ public class Main {
         }
     }
 
+    public static void checkOverWeight(PassengerPlane passengerPlane) {
+        System.out.println("\n8. Overweight check...");
+
+        if (BaggageUtility.hasOverWeight(passengerPlane)) {
+            System.out.println("Flight baggage is OVER the limit!");
+        } else {
+            System.out.println("Flight baggage weight is OK");
+        }
+    }
+
     public static void checkWeather(Weather weather) {
+        System.out.println("\n !Weather Check!...");
+
         try {
             if (!weather.isFlyable()) {
                 throw new BadWeatherException(
@@ -163,19 +209,4 @@ public class Main {
     }
 }
 
-public void departureGatesAssigned(Flight flight) {
-    Gate gateFrom = new Gate(4);
-    flight.getAirportFrom()
-            .getTerminals()
-            .getFirst()
-            .addGate(gateFrom);
-    System.out.println("Flight is assigned with " + flight.getAirportFrom().getTerminals() + " to start from...");
-}
 
-public static void checkOverWeight(PassengerPlane passengerPlane) {
-    if (BaggageUtility.hasOverWeight(passengerPlane)) {
-        System.out.println("Flight baggage is OVER the limit!");
-    } else {
-        System.out.println("Flight baggage weight is OK");
-    }
-}
