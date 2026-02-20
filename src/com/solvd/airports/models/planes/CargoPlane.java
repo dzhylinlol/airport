@@ -1,8 +1,9 @@
 package com.solvd.airports.models.planes;
 
 import com.solvd.airports.interfaces.IFly;
+import com.solvd.airports.models.cargo.MedicalSupplies;
 
-public class CargoPlane extends Airplane implements IFly {
+public class CargoPlane extends Airplane<MedicalSupplies> implements IFly {
 
     private Integer maxPayloadKg;
     private Double volumeCubicMeters;
@@ -44,4 +45,5 @@ public class CargoPlane extends Airplane implements IFly {
     public void setVolumeCubicMeters(Double volumeCubicMeters) {
         this.volumeCubicMeters = volumeCubicMeters;
     }
+
 }

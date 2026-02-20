@@ -3,9 +3,11 @@ package com.solvd.airports.models.people;
 import com.solvd.airports.exceptions.PersonHasCoronaVirusException;
 
 public class SecurityAgent extends Person {
+
     private String checkpoint;
 
-    public SecurityAgent() {};
+    public SecurityAgent() {
+    }
 
     public SecurityAgent(Long id,
                          String firstName,
@@ -15,26 +17,24 @@ public class SecurityAgent extends Person {
         this.checkpoint = checkpoint;
     }
 
-    @Override
-    public String getRole(){
-        return "Security Agent" + getFirstName() + " " + getLastName() + "is responsible for security check";
-    }
-
-    public void checkForCorona(Passenger passenger) throws PersonHasCoronaVirusException {
+    public void process(Passenger passenger) throws PersonHasCoronaVirusException {
         if (passenger.getHasCorona()) {
             throw new PersonHasCoronaVirusException("Passenger has corona! Not allowed to proceed further");
         }
     }
 
-
-    public String getCheckpoint(){
+    public String getCheckpoint() {
         return checkpoint;
     }
 
-    public void setCheckpoint(String checkpoint){
+    public void setCheckpoint(String checkpoint) {
         this.checkpoint = checkpoint;
     }
 
+    @Override
+    public String getRole() {
+        return "Security Agent" + getFirstName() + " " + getLastName() + "is responsible for security check";
+    }
 
 }
 

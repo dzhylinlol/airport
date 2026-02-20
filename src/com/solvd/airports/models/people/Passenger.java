@@ -7,6 +7,7 @@ public class Passenger extends Person {
     private Ticket ticket;
     private Integer baggageWeightKG;
     private boolean hasCorona = false;
+    private PassengerPriority priority;
 
     public Passenger() {
     }
@@ -16,7 +17,7 @@ public class Passenger extends Person {
                      String lastName,
                      Ticket ticket,
                      Integer baggageWeightKG,
-                     boolean hasCorona) {
+                     boolean hasCorona){
         super(id, firstName, lastName);
         this.ticket = ticket;
         this.baggageWeightKG = baggageWeightKG;
@@ -26,10 +27,12 @@ public class Passenger extends Person {
                      String firstName,
                      String lastName,
                      Integer baggageWeightKG,
-                     boolean hasCorona) {
+                     boolean hasCorona,
+                     PassengerPriority priority) {
         super(id, firstName, lastName);
         this.baggageWeightKG = baggageWeightKG;
         this.hasCorona = hasCorona;
+        this.priority = priority;
     }
 
     public Passenger(Long id,
@@ -43,12 +46,6 @@ public class Passenger extends Person {
     @Override
     public String getRole() {
         return "Passenger";
-    }
-
-    @Override
-    public String toString() {
-        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " ";
-//                + (ticket == null ? "without ticket" : ticket.getNumber());
     }
 
     public Ticket getTicket() {
@@ -70,8 +67,19 @@ public class Passenger extends Person {
     public boolean getHasCorona() {
         return hasCorona;
     }
+
     public void setHasCorona(boolean hasCorona) {
         this.hasCorona = hasCorona;
+    }
+
+    public PassengerPriority getPriority() {
+        return priority;
+    }
+
+    @Override
+    public String toString() {
+        return "Passenger: " + super.getFirstName() + " " + super.getLastName() + " ";
+//                + (ticket == null ? "without ticket" : ticket.getNumber());
     }
 
 }

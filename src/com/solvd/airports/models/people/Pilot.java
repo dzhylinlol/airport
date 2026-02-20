@@ -1,6 +1,5 @@
 package com.solvd.airports.models.people;
 
-
 import com.solvd.airports.interfaces.IPerformDuty;
 import com.solvd.airports.models.infrastructure.Flight;
 
@@ -9,7 +8,8 @@ public class Pilot extends CrewMember implements IPerformDuty {
     private String licenseNumber;
     private String rank;
 
-    public Pilot() {};
+    public Pilot() {
+    }
 
     public Pilot(Long id,
                  String firstName,
@@ -18,25 +18,18 @@ public class Pilot extends CrewMember implements IPerformDuty {
                  Integer yearsOfExperience,
                  String licenseNumber,
                  String rank) {
-        super(id, firstName, lastName,employeeId, yearsOfExperience);
+        super(id, firstName, lastName, employeeId, yearsOfExperience);
         this.licenseNumber = licenseNumber;
         this.rank = rank;
-    }
-
-    @Override
-    public String toString() {
-        return "firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                '}';
     }
 
     @Override
     public String getRole() {
         return "Pilot (" + rank + "), License: " + licenseNumber;
     }
+
     @Override
-    public void performDuty (Flight flight) {
+    public void performDuty(Flight flight) {
         System.out.println("Pilot" + " " + getFirstName() + " " + getLastName() + " " + "operating the aircraft" + flight.getAirplane().getModel());
     }
 
@@ -54,6 +47,14 @@ public class Pilot extends CrewMember implements IPerformDuty {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public String toString() {
+        return "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                '}';
     }
 
 }

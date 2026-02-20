@@ -76,7 +76,6 @@ public class Flight {
     public void start() throws PlaneIsBrokenExceptionException {
         System.out.println("Starting Flight...");
         airplane.takeOff();
-
     };
 
     public void finish() {

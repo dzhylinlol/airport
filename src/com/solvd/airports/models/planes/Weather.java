@@ -1,12 +1,13 @@
-package com.solvd.airports.models;
+package com.solvd.airports.models.planes;
 
 public enum Weather {
+
     STORM(false),
     CLOUDY(true),
     SUNNY(true),
     RAINY(false);
 
-    final boolean flyable;
+    private final boolean flyable;
 
     Weather(boolean flyable) {
         this.flyable = flyable;
@@ -15,4 +16,5 @@ public enum Weather {
     public boolean isFlyable() {
         return flyable;
     }
+
 }

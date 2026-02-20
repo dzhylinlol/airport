@@ -1,6 +1,5 @@
 package com.solvd.airports.models.planes;
 
-import com.solvd.airports.exceptions.PersonHasCoronaVirusException;
 import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
 import com.solvd.airports.interfaces.IFly;
 import com.solvd.airports.models.people.FlightAttendant;
@@ -9,14 +8,12 @@ import com.solvd.airports.models.people.Passenger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Queue;
 
-public class PassengerPlane extends Airplane implements IFly {
+public class PassengerPlane extends Airplane<Passenger> implements IFly {
 
     private Integer capacity;
     private Integer baggageCapacityKg;
     private List<FlightAttendant> flightAttendants;
-    private List<Passenger> passengers;
 
     public PassengerPlane() {
     }
@@ -28,15 +25,6 @@ public class PassengerPlane extends Airplane implements IFly {
         super(id, model);
         this.capacity = capacity;
         this.baggageCapacityKg = baggageCapacityKg;
-    }
-
-    ;
-
-    @Override
-    public String toString() {
-        return "Passenger plane: " +
-                super.toString() + "\nPilot: " + getPilot() + "\nAttendants: " + flightAttendants;
-
     }
 
     @Override
@@ -77,26 +65,31 @@ public class PassengerPlane extends Airplane implements IFly {
     }
 
     public List<Passenger> getPassengers() {
-        return passengers;
+        return getLoad();
     }
 
+    public void setPassengers(List<Passenger> passengers) {
+        setLoad(passengers);
+    }
 
     public void addPassenger(Passenger newPassenger) {
-        if (this.passengers == null) {
-            this.passengers = new ArrayList<>();
-            passengers.add(newPassenger);
+        List<Passenger> load = getLoad();
+        if (load == null) {
+            load = new ArrayList<>();
+            load.add(newPassenger);
+            super.setLoad(load);
             return;
         }
 
         boolean hasSamePassenger = false;
-        for (Passenger oldPassenger : passengers) {
+        for (Passenger oldPassenger : load) {
             if (oldPassenger.equals(newPassenger)) {
                 hasSamePassenger = true;
             }
         }
 
-        if (hasSamePassenger == false) {
-            this.passengers.add(newPassenger);
+        if (!hasSamePassenger) {
+            load.add(newPassenger);
         }
     }
 
@@ -113,8 +106,11 @@ public class PassengerPlane extends Airplane implements IFly {
         this.flightAttendants.add(flightAttendant);
     }
 
-    public void removePassenger(Passenger passenger) {
-        this.passengers.remove(passenger);
+
+    @Override
+    public String toString() {
+        return "Passenger plane: " +
+                super.toString() + "\nPilot: " + getPilot() + "\nAttendants: " + flightAttendants;
     }
 
 }

@@ -38,7 +38,6 @@ public class CheckInAgent extends Person {
         }
     }
 
-    // add try-catch
     public void process(List<Passenger> passengers) throws PassengerHasNoTicketException {
         for (Passenger passenger : passengers) {
             process(passenger);
