@@ -1,9 +1,5 @@
 package com.solvd.airports.models.infrastructure;
 
-import com.solvd.airports.models.people.Passenger;
-import com.solvd.airports.models.planes.Airplane;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

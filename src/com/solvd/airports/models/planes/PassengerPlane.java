@@ -94,9 +94,7 @@ public class PassengerPlane extends Airplane<Passenger> implements IFly {
     }
 
     public void addPassengers(Collection<Passenger> newPassengers) {
-        for (Passenger newOne : newPassengers) {
-            this.addPassenger(newOne);
-        }
+        newPassengers.stream().forEach(this::addPassenger);
     }
 
     public void addFlightAttendant(FlightAttendant flightAttendant) {
@@ -105,7 +103,6 @@ public class PassengerPlane extends Airplane<Passenger> implements IFly {
         }
         this.flightAttendants.add(flightAttendant);
     }
-
 
     @Override
     public String toString() {

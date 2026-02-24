@@ -59,7 +59,6 @@ public class DLinkedList<T> {
             current = current.getNext();
             counter++;
         }
-
         throw new IndexOutOfBoundsException("You've reached the end of the list");
     }
 

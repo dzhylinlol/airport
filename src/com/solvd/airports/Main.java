@@ -5,10 +5,12 @@ import com.solvd.airports.models.planes.Weather;
 import com.solvd.airports.models.infrastructure.*;
 import com.solvd.airports.models.people.*;
 import com.solvd.airports.models.planes.PassengerPlane;
-import com.solvd.airports.utilities.BaggageUtility;
 import com.solvd.airports.services.DLinkedList;
+import com.solvd.airports.utilities.BaggageUtility;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.IntStream;
 
 import static com.solvd.airports.models.people.PassengerPriority.*;
 
@@ -18,52 +20,46 @@ public class Main {
         Flight flight = new Flight(13L);
         setAirports(flight);
 
+        checkArrivalAirportContactInfo();
+
         PassengerPlane passengerPlane = new PassengerPlane(7456L, "Boeing-4657", 20, 746);
         addCrewToPlane(passengerPlane);
 
-        List<Passenger> passengers = createPassengers();
+        LinkedList<Passenger> passengers = createPassengers();
         List<Ticket> tickets = createTickets(flight.getId(), passengerPlane.getCapacity());
 
-        Map<Long, Ticket> assignments = assignTicketsToPassengers(passengers, tickets);
-        for (Map.Entry<Long, Ticket> entry : assignments.entrySet()) {
-            System.out.println("Passenger ID: " + entry.getKey());
-            System.out.println("Ticket: " + entry.getValue());
-        }
+        Map<Passenger, Ticket> assignments = assignTicketsToPassengers(passengers, tickets);
+        assignments.entrySet()
+                   .stream()
+                   .forEach(entry ->
+                           System.out.println(
+                                   entry.getKey().getFirstName() + " "
+                                           + entry.getKey().getLastName()
+                                           + " -> Ticket: "
+                                           + entry.getValue().getNumber()
+                           )
+                   );
 
         checkLoungeAccess(passengers);
 
-        LinkedList<Passenger> passengersChecked = new LinkedList<>(passengers);
-        checkCorona(passengersChecked);
-        checkInPassengers(passengersChecked);
+        checkCorona(passengers);
+        checkInPassengers(passengers);
 
-        System.out.println("Passengers who managed to get to the Plane > ");
-        for (Passenger passenger : passengersChecked) {
-            System.out.println(passenger + " " + passenger.getTicket());
-        }
+        System.out.println("\nPassengers who managed to get to the Plane after health/ticket screening> ");
+        passengers.stream()
+                  .forEach(passenger -> System.out.println(passenger + " " + passenger.getTicket()));
 
-        passengerPlane.addPassengers(passengersChecked);
+        passengerPlane.addPassengers(passengers);
         flight.setAirplane(passengerPlane);
-
-        Weather weather = Weather.STORM;
-        try {
-            checkWeather(weather);
-        } catch (BadWeatherException e) {
-            System.out.println(e.getMessage());
-        }
-
-        Weather weather1 = Weather.SUNNY;
-        try {
-            checkWeather(weather1);
-        } catch (BadWeatherException e) {
-            System.out.println(e.getMessage());
-        }
 
         checkOverWeight(passengerPlane);
 
         System.out.println("\n9. Flight processing...");
 
-        passengerPlane.setIsBroken(false);
+        Weather weather = Weather.STORM;
+        checkWeather(weather);
 
+        passengerPlane.setIsBroken(false);
         try {
             flight.start();
             flight.finish();
@@ -83,13 +79,25 @@ public class Main {
 
         Terminal terminalFrom = new Terminal("A");
         Terminal terminalTo = new Terminal("B");
-        Airport airportFrom = new Airport("WAW", "Chopin", List.of(terminalFrom));
-        Airport airportTo = new Airport("MSQ", "Minsk National Airport", List.of(terminalTo));
+        Airport chopin = new Airport("WAW", "Chopin", List.of(terminalFrom));
+        Airport msq = new Airport("MSQ", "Minsk National Airport", List.of(terminalTo));
 
-        flight.setAirportFrom(airportFrom);
-        flight.setAirportTo(airportTo);
+        flight.setAirportFrom(chopin);
+        flight.setAirportTo(msq);
 
-        System.out.println("Flight - " + flight.getId() + "scheduled from " + airportFrom + " to " + airportTo);
+        FlightRoute route = new FlightRoute(
+                chopin,
+                msq,
+                LocalDateTime.of(2026, 3, 1, 14, 20),
+                LocalDateTime.of(2026, 3, 1, 16, 50));
+
+        System.out.println("Flight - " + flight.getId() + "scheduled from " + chopin + " to " + msq);
+        System.out.println("Duration (minutes): " + route.getFlightDurationInMinutes());
+    }
+
+    public static void checkArrivalAirportContactInfo() {
+        AirportContactInfo contactMSQ = new AirportContactInfo("MSQ", "+375 17 279-13-00", "msqtkt@transavia.by", "https://airport.by");
+        System.out.println("Arrival Airport Contact Info - " + contactMSQ);
     }
 
     public static void addCrewToPlane(PassengerPlane passengerPlane) {
@@ -106,9 +114,9 @@ public class Main {
         System.out.println("Airplane: " + passengerPlane);
     }
 
-    public static List<Passenger> createPassengers() {
+    public static LinkedList<Passenger> createPassengers() {
         System.out.println("\n3. Passengers gathering for the flight...");
-        List<Passenger> passengers = new ArrayList<>();
+        LinkedList<Passenger> passengers = new LinkedList<>();
 
         Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 2775, false, GOLD);
         Passenger passenger2 = new Passenger(2L, "Ewa", "Polska", 20, true, STANDARD);
@@ -133,26 +141,19 @@ public class Main {
         System.out.println("\n4. Tickets prepared based of passenger plane capacity...");
 
         List<Ticket> tickets = new ArrayList<>();
-        Set<String> usedSeats = new HashSet<>();
 
-        int seatNumber = 1;
-        while (tickets.size() < ticketCount) {
-            String seat = "A" + seatNumber;
-            String number = "T" + seatNumber;
-            seatNumber++;
+        IntStream.rangeClosed(1, ticketCount)
+                 .forEach(i ->
+                         tickets.add(new Ticket("T" + i, flightId, "A" + i))
+                 );
 
-            if (usedSeats.add(seat)) {
-                Ticket ticket = new Ticket(number, flightId, seat);
-                tickets.add(ticket);
-            }
-        }
         return tickets;
     }
 
-    public static Map<Long, Ticket> assignTicketsToPassengers(List<Passenger> passengers, List<Ticket> tickets) {
+    public static Map<Passenger, Ticket> assignTicketsToPassengers(Queue<Passenger> passengers, List<Ticket> tickets) {
         System.out.println("\n5. Passengers 'buy' tickets...");
 
-        Map<Long, Ticket> passengerTickets = new HashMap<>();
+        Map<Passenger, Ticket> passengerTickets = new HashMap<>();
         int i = 0;
 
         for (Passenger passenger : passengers) {
@@ -160,21 +161,19 @@ public class Main {
                 break;
             }
             Ticket ticket = tickets.get(i);
-            passengerTickets.put(passenger.getId(), ticket);
+            passengerTickets.put(passenger, ticket);
             passenger.setTicket(ticket);
             i++;
         }
         return passengerTickets;
     }
 
-    public static void checkLoungeAccess(List<Passenger> passengers) {
+    public static void checkLoungeAccess(Queue<Passenger> passengers) {
         System.out.println("\nPassengers with lounge access:");
 
-        for (Passenger p : passengers) {
-            if (p.getPriority().hasLoungeAccess()) {
-                System.out.println(p);
-            }
-        }
+        passengers.stream()
+                  .filter(passenger -> passenger.getPriority().hasLoungeAccess())
+                  .forEach(System.out::println);
     }
 
     public static void checkCorona(Queue<Passenger> passengers) {
@@ -194,8 +193,8 @@ public class Main {
         }
     }
 
-    public static void checkInPassengers(List<Passenger> passengers) {
-        System.out.println("\n7. Ticket check...");
+    public static void checkInPassengers(LinkedList<Passenger> passengers) {
+        System.out.println("\n7. Ticket verification...");
         CheckInAgent checkInAgent = new CheckInAgent();
 
         for (int i = 0; i < passengers.size(); i++) {
@@ -219,15 +218,17 @@ public class Main {
         }
     }
 
-    public static void checkWeather(Weather weather) throws BadWeatherException {
+    public static void checkWeather(Weather weather) {
         System.out.println("\n !Weather Check!...");
 
-        if (!weather.isFlyable()) {
-            throw new BadWeatherException(
-                    "We can't start the flight. We need to wait for better weather."
-            );
+        Meteorologist meteorologist = new Meteorologist();
+
+        try {
+            meteorologist.checkWeather(weather);
+        } catch (BadWeatherException e) {
+            System.out.println("Weather is not flyable");
         }
-        System.out.println("We can start the flight.");
+        System.out.println("Weather is flyable");
     }
 
     public static void playWithLL(DLinkedList<Integer> list) {
