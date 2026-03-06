@@ -73,7 +73,7 @@ public class Flight {
 //        this.flightAttendants.add(flightAttendant);
 //    }
 
-    public void start() throws PlaneIsBrokenExceptionException {
+    public void start() {
         System.out.println("Starting Flight...");
         airplane.takeOff();
     };

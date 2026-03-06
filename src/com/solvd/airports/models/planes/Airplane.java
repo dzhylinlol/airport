@@ -1,5 +1,6 @@
 package com.solvd.airports.models.planes;
 
+import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
 import com.solvd.airports.interfaces.IFly;
 import com.solvd.airports.models.people.Pilot;
 
@@ -20,6 +21,13 @@ public abstract class Airplane<T> implements IFly {
     public Airplane(Long id, String model) {
         this.id = id;
         this.model = model;
+    }
+
+    public void checkIsBroken() throws PlaneIsBrokenExceptionException {
+        if(isBroken){
+            throw new PlaneIsBrokenExceptionException("Plane is broken!");
+        }
+
     }
 
     public Long getId() {

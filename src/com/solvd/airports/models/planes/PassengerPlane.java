@@ -28,10 +28,7 @@ public class PassengerPlane extends Airplane<Passenger> implements IFly {
     }
 
     @Override
-    public void takeOff() throws PlaneIsBrokenExceptionException {
-        if (this.getIsBroken()) {
-            throw new PlaneIsBrokenExceptionException("Passenger plane is broken, can not be in use!");
-        }
+    public void takeOff()  {
         System.out.println("Passenger plane " + super.getModel() + " starting engines");
     }
 

@@ -10,6 +10,7 @@ import com.solvd.airports.utilities.BaggageUtility;
 
 import java.time.LocalDateTime;
 import java.util.*;
+
 import java.util.stream.IntStream;
 
 import static com.solvd.airports.models.people.PassengerPriority.*;
@@ -22,7 +23,7 @@ public class Main {
 
         checkArrivalAirportContactInfo();
 
-        PassengerPlane passengerPlane = new PassengerPlane(7456L, "Boeing-4657", 20, 746);
+        PassengerPlane passengerPlane = new PassengerPlane(7456L, "Boeing-4657", 20, 1000);
         addCrewToPlane(passengerPlane);
 
         LinkedList<Passenger> passengers = createPassengers();
@@ -42,8 +43,9 @@ public class Main {
 
         checkLoungeAccess(passengers);
 
-        checkCorona(passengers);
         checkInPassengers(passengers);
+        checkCorona(passengers);
+
 
         System.out.println("\nPassengers who managed to get to the Plane after health/ticket screening> ");
         passengers.stream()
@@ -52,21 +54,38 @@ public class Main {
         passengerPlane.addPassengers(passengers);
         flight.setAirplane(passengerPlane);
 
-        checkOverWeight(passengerPlane);
-
         System.out.println("\n9. Flight processing...");
 
+        boolean readyToFly = false;
         Weather weather = Weather.STORM;
-        checkWeather(weather);
+        Meteorologist meteorologist = new Meteorologist();
+        passengerPlane.setIsBroken(true);
 
-        passengerPlane.setIsBroken(false);
-        try {
-            flight.start();
-            flight.finish();
-            System.out.println("Flight processed...");
-        } catch (PlaneIsBrokenExceptionException e) {
-            System.out.println(e.getMessage());
+        while (!readyToFly) {
+            try {
+                meteorologist.checkWeather(weather);
+                BaggageUtility.checkOverWeight(passengerPlane);
+                passengerPlane.checkIsBroken();
+                readyToFly = true;
+            } catch (BadWeatherException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Waiting for good weather");
+                weather = Weather.SUNNY;
+                System.out.println("The weather is " + weather.name());
+            } catch (BaggageOverweightException e) {
+                System.out.println(e.getMessage());
+                passengers.getFirst().setBaggageWeightKG(5);
+                System.out.println("Overweight Fixed...");
+            } catch (PlaneIsBrokenExceptionException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Waiting for the plane to be fixed!");
+                passengerPlane.setIsBroken(false);
+                System.out.println("The plane is good to go!");
+            }
         }
+
+        flight.start();
+        flight.finish();
 
         System.out.println("\n10. Custom Linked List...");
         DLinkedList<Integer> list = new DLinkedList<>();
@@ -118,7 +137,7 @@ public class Main {
         System.out.println("\n3. Passengers gathering for the flight...");
         LinkedList<Passenger> passengers = new LinkedList<>();
 
-        Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 2775, false, GOLD);
+        Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 1, false, GOLD);
         Passenger passenger2 = new Passenger(2L, "Ewa", "Polska", 20, true, STANDARD);
         Passenger passenger3 = new Passenger(3L, "Piotr", "Zapolski", 5, false, VIP);
         Passenger passenger4 = new Passenger(4L, "Anna", "Mitskewich", 10, false, PLATINUM);
@@ -143,9 +162,7 @@ public class Main {
         List<Ticket> tickets = new ArrayList<>();
 
         IntStream.rangeClosed(1, ticketCount)
-                 .forEach(i ->
-                         tickets.add(new Ticket("T" + i, flightId, "A" + i))
-                 );
+                 .forEach(i -> tickets.add(new Ticket("T" + i, flightId, "A" + i)));
 
         return tickets;
     }
@@ -176,23 +193,6 @@ public class Main {
                   .forEach(System.out::println);
     }
 
-    public static void checkCorona(Queue<Passenger> passengers) {
-        System.out.println("\n6. Corona check...");
-
-        SecurityAgent securityAgent = new SecurityAgent();
-        int originalSize = passengers.size();
-
-        for (int i = 0; i < originalSize; i++) {
-            Passenger passenger = passengers.poll();
-            try {
-                securityAgent.process(passenger);
-                passengers.add(passenger);
-            } catch (PersonHasCoronaVirusException e) {
-                System.out.println(passenger + " is sick");
-            }
-        }
-    }
-
     public static void checkInPassengers(LinkedList<Passenger> passengers) {
         System.out.println("\n7. Ticket verification...");
         CheckInAgent checkInAgent = new CheckInAgent();
@@ -208,27 +208,21 @@ public class Main {
         }
     }
 
-    public static void checkOverWeight(PassengerPlane passengerPlane) {
-        System.out.println("\n8. Overweight check...");
+    public static void checkCorona(Queue<Passenger> passengers) {
+        System.out.println("\n6. Corona check...");
 
-        try {
-            BaggageUtility.checkOverWeight(passengerPlane);
-        } catch (BaggageOverweightException e) {
-            System.out.println(e.getMessage());
+        SecurityAgent securityAgent = new SecurityAgent();
+        int originalSize = passengers.size();
+
+        for (int i = 0; i < originalSize; i++) {
+            Passenger passenger = passengers.poll();
+            try {
+                securityAgent.process(passenger);
+                passengers.add(passenger);
+            } catch (PersonHasCoronaVirusException e) {
+                System.out.println(passenger + " is sick");
+            }
         }
-    }
-
-    public static void checkWeather(Weather weather) {
-        System.out.println("\n !Weather Check!...");
-
-        Meteorologist meteorologist = new Meteorologist();
-
-        try {
-            meteorologist.checkWeather(weather);
-        } catch (BadWeatherException e) {
-            System.out.println("Weather is not flyable");
-        }
-        System.out.println("Weather is flyable");
     }
 
     public static void playWithLL(DLinkedList<Integer> list) {
