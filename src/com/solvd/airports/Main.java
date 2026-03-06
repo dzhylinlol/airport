@@ -88,7 +88,7 @@ public class Main {
         flight.finish();
 
         System.out.println("\n10. Custom Linked List...");
-        DLinkedList<Integer> list = new DLinkedList<>();
+        DLinkedList<Passenger> list = new DLinkedList<>();
         playWithLL(list);
 
     }
@@ -225,16 +225,16 @@ public class Main {
         }
     }
 
-    public static void playWithLL(DLinkedList<Integer> list) {
+    public static void playWithLL(DLinkedList<Passenger> list) {
         Passenger passenger1 = new Passenger(11L, "Bob", "Mem", 20, false, GOLD);
         Passenger passenger2 = new Passenger(12L, "Mike", "Kek", 55, false, VIP);
         Passenger passenger3 = new Passenger(13L, "Luc", "Lol", 12, false, PLATINUM);
         Passenger passenger4 = new Passenger(14L, "Rick", "Son", 5, false, STANDARD);
 
-        list.addToTail(1);
-        list.addToTail(2);
-        list.addToTail(3);
-        list.addToTail(4);
+        list.addToTail(passenger1);
+        list.addToTail(passenger2);
+        list.addToTail(passenger3);
+        list.addToTail(passenger4);
 
         list.print();
 
