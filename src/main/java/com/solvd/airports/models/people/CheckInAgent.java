@@ -3,8 +3,6 @@ package com.solvd.airports.models.people;
 
 import com.solvd.airports.exceptions.PassengerHasNoTicketException;
 
-import java.util.List;
-
 public class CheckInAgent extends Person {
     private String airline;
 

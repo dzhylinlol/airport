@@ -1,6 +1,5 @@
 package com.solvd.airports.models.planes;
 
-import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
 import com.solvd.airports.interfaces.IFly;
 import com.solvd.airports.models.people.FlightAttendant;
 import com.solvd.airports.models.people.Passenger;

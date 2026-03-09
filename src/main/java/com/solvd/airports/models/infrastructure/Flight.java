@@ -1,13 +1,6 @@
 package com.solvd.airports.models.infrastructure;
 
-import com.solvd.airports.exceptions.PlaneIsBrokenExceptionException;
-import com.solvd.airports.models.people.FlightAttendant;
-import com.solvd.airports.models.people.Passenger;
-import com.solvd.airports.models.people.Pilot;
 import com.solvd.airports.models.planes.Airplane;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Flight {
     private Long id;

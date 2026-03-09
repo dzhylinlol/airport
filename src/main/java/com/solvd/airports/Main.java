@@ -1,6 +1,9 @@
 package com.solvd.airports;
 
 import com.solvd.airports.exceptions.*;
+import com.solvd.airports.models.infrastructure.*;
+import com.solvd.airports.models.people.*;
+import com.solvd.airports.exceptions.*;
 import com.solvd.airports.models.planes.Weather;
 import com.solvd.airports.models.infrastructure.*;
 import com.solvd.airports.models.people.*;
