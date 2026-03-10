@@ -5,20 +5,20 @@ import com.solvd.airports.models.planes.Weather;
 
 public class Meteorologist extends Person {
 
-    // добавить норм проперти
+    private String weatherStation;
+    private double forecastAccuracy;
 
     public Meteorologist() {
     }
 
     public Meteorologist(Long id,
                          String firstName,
-                         String lastName) {
+                         String lastName,
+                         String weatherStation,
+                         double forecastAccuracy) {
         super(id, firstName, lastName);
-    }
-
-    @Override
-    public String getRole() {
-        return "Meteorologist" + getFirstName() + " " + getLastName();
+        this.weatherStation = weatherStation;
+        this.forecastAccuracy = forecastAccuracy;
     }
 
     public void checkWeather(Weather weather) throws BadWeatherException {
@@ -26,4 +26,23 @@ public class Meteorologist extends Person {
             throw new BadWeatherException("Weather is not flyable!");
         }
     }
+    public String getWeatherStation() {
+        return weatherStation;
+    }
+    public void setWeatherStation(String weatherStation) {
+        this.weatherStation = weatherStation;
+    }
+    public double getForecastAccuracy() {
+        return forecastAccuracy;
+    }
+    public void setForecastAccuracy(double forecastAccuracy) {
+        this.forecastAccuracy = forecastAccuracy;
+    }
+
+    @Override
+    public String getRole() {
+        return "Meteorologist" + getFirstName() + " " + getLastName();
+    }
+
+
 }

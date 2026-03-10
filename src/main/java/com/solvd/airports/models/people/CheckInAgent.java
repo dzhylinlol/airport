@@ -22,6 +22,12 @@ public class CheckInAgent extends Person {
         return "Checking Agent" + getFirstName() + " " + getLastName() + "is responsible for passengers check-in";
     }
 
+    public void process(Passenger passenger) throws PassengerHasNoTicketException {
+        if (passenger.getTicket() == null) {
+            throw new PassengerHasNoTicketException("User does not have a ticket, can not proceed with security check");
+        }
+    }
+
     public String getAirline() {
         return airline;
     }
@@ -30,10 +36,6 @@ public class CheckInAgent extends Person {
         this.airline = airline;
     }
 
-    public void process(Passenger passenger) throws PassengerHasNoTicketException {
-        if (passenger.getTicket() == null) {
-            throw new PassengerHasNoTicketException("User does not have a ticket, can not proceed with security check");
-        }
-    }
+
 
 }

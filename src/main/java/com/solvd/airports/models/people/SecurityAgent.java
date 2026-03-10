@@ -17,6 +17,11 @@ public class SecurityAgent extends Person {
         this.checkpoint = checkpoint;
     }
 
+    @Override
+    public String getRole() {
+        return "Security Agent" + getFirstName() + " " + getLastName() + "is responsible for security check";
+    }
+
     public void process(Passenger passenger) throws PersonHasCoronaVirusException {
         if (passenger.getHasCorona()) {
             throw new PersonHasCoronaVirusException("Passenger has corona! Not allowed to proceed further");
@@ -31,10 +36,6 @@ public class SecurityAgent extends Person {
         this.checkpoint = checkpoint;
     }
 
-    @Override
-    public String getRole() {
-        return "Security Agent" + getFirstName() + " " + getLastName() + "is responsible for security check";
-    }
 
 }
 
