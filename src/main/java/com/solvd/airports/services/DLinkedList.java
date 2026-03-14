@@ -1,6 +1,11 @@
 package com.solvd.airports.services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DLinkedList<T> {
+
+    private static final Logger LOGGER = LogManager.getLogger(DLinkedList.class);
 
     private T value;
     private DNode<T> tail;
@@ -64,17 +69,18 @@ public class DLinkedList<T> {
 
     public void print() {
         if (head == null) {
-            System.out.println("List is empty");
+            LOGGER.info("List is empty");
             return;
         }
 
         DNode<T> current = head;
+        StringBuilder result = new StringBuilder();
 
         while (current != null) {
-            System.out.print(current.getValue() + " ");
+            result.append(current.getValue()).append(" ");
             current = current.getNext();
         }
-        System.out.println();
+        LOGGER.info("List values: {}", result.toString());
     }
 
 }

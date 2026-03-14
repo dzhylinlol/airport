@@ -3,9 +3,15 @@ package com.solvd.airports.models.people;
 import com.solvd.airports.interfaces.IPerformDuty;
 import com.solvd.airports.models.infrastructure.Flight;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 public class FlightAttendant extends CrewMember implements IPerformDuty {
+
+    private static final Logger LOGGER = LogManager.getLogger(FlightAttendant.class);
+
     private List<String> languages;
     private Boolean isPurser;
 
@@ -37,9 +43,11 @@ public class FlightAttendant extends CrewMember implements IPerformDuty {
 
     @Override
     public void performDuty(Flight flight) {
-        System.out.println("Flight Attendant" + " " + getFirstName() + " " + getLastName() + " "
-                + "doing service onboard for " + flight.getAirplane().getModel()
-                + (isPurser ? " is a main FA " : " is a FA "));
+        LOGGER.info("Flight attendant {} {} serving on {} as {}",
+                getFirstName(),
+                getLastName(),
+                flight.getAirplane().getModel(),
+                isPurser ? "Purser" : "Flight Attendant");
     }
 
     public List<String> getLanguages() {

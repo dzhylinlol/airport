@@ -11,6 +11,9 @@ import com.solvd.airports.models.planes.PassengerPlane;
 import com.solvd.airports.services.DLinkedList;
 import com.solvd.airports.utilities.BaggageUtility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -19,6 +22,8 @@ import java.util.stream.IntStream;
 import static com.solvd.airports.models.people.PassengerPriority.*;
 
 public class Main {
+
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
         Flight flight = new Flight(13L);
@@ -36,11 +41,10 @@ public class Main {
         assignments.entrySet()
                    .stream()
                    .forEach(entry ->
-                           System.out.println(
-                                   entry.getKey().getFirstName() + " "
-                                           + entry.getKey().getLastName()
-                                           + " -> Ticket: "
-                                           + entry.getValue().getNumber()
+                           LOGGER.info( "{} {} -> Ticket: {}",
+                                   entry.getKey().getFirstName(),
+                                   entry.getKey().getLastName(),
+                                   entry.getValue().getNumber()
                            )
                    );
 
@@ -50,14 +54,14 @@ public class Main {
         checkCorona(passengers);
 
 
-        System.out.println("\nPassengers who managed to get to the Plane after health/ticket screening> ");
+        LOGGER.info("Passengers who managed to get to the Plane after health/ticket screening> ");
         passengers.stream()
-                  .forEach(passenger -> System.out.println(passenger + " " + passenger.getTicket()));
+                  .forEach(passenger -> LOGGER.info("Passenger {} with ticket number {}",passenger, passenger.getTicket()));
 
         passengerPlane.addPassengers(passengers);
         flight.setAirplane(passengerPlane);
 
-        System.out.println("\n9. Flight processing...");
+        LOGGER.info("9. Flight processing...");
 
         boolean readyToFly = false;
         Weather weather = Weather.STORM;
@@ -71,33 +75,33 @@ public class Main {
                 passengerPlane.checkIsBroken();
                 readyToFly = true;
             } catch (BadWeatherException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Waiting for good weather");
+                LOGGER.error("Bad weather detected", e);
+                LOGGER.warn("Waiting for good weather");
                 weather = Weather.SUNNY;
-                System.out.println("The weather is " + weather.name());
+                LOGGER.info("Weather updated to {}", weather.name());;
             } catch (BaggageOverweightException e) {
-                System.out.println(e.getMessage());
+                LOGGER.error("Baggage Overweight detected",e);
                 passengers.getFirst().setBaggageWeightKG(5);
-                System.out.println("Overweight Fixed...");
+                LOGGER.info("Overweight fixed...");
             } catch (PlaneIsBrokenExceptionException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Waiting for the plane to be fixed!");
+                LOGGER.error("Plane is broken",e);
+                LOGGER.warn("Waiting for the plane to be fixed!");
                 passengerPlane.setIsBroken(false);
-                System.out.println("The plane is good to go!");
+                LOGGER.info("The plane is good to go!");
             }
         }
 
         flight.start();
         flight.finish();
 
-        System.out.println("\n10. Custom Linked List...");
+        LOGGER.info("10. Custom Linked List...");
         DLinkedList<Passenger> list = new DLinkedList<>();
         playWithLL(list);
 
     }
 
     public static void setAirports(Flight flight) {
-        System.out.println("\n1. Flight is scheduled: Route...");
+        LOGGER.info("1. Flight is scheduled: Route...");
 
         Terminal terminalFrom = new Terminal("A");
         Terminal terminalTo = new Terminal("B");
@@ -113,17 +117,17 @@ public class Main {
                 LocalDateTime.of(2026, 3, 1, 14, 20),
                 LocalDateTime.of(2026, 3, 1, 16, 50));
 
-        System.out.println("Flight - " + flight.getId() + "scheduled from " + chopin + " to " + msq);
-        System.out.println("Duration (minutes): " + route.getFlightDurationInMinutes());
+        LOGGER.info("Flight - {}, scheduled from {} to {}", flight.getId(), chopin,msq);
+        LOGGER.info("Duration (minutes): {}",route.getFlightDurationInMinutes());
     }
 
     public static void checkArrivalAirportContactInfo() {
         AirportContactInfo contactMSQ = new AirportContactInfo("MSQ", "+375 17 279-13-00", "msqtkt@transavia.by", "https://airport.by");
-        System.out.println("Arrival Airport Contact Info - " + contactMSQ);
+        LOGGER.info("Arrival Airport Contact Info - {} ",contactMSQ);
     }
 
     public static void addCrewToPlane(PassengerPlane passengerPlane) {
-        System.out.println("\n2. Crew assigned to the Airplane...");
+        LOGGER.info("2. Crew assigned to the Airplane...");
 
         Pilot pilot = new Pilot(1L, "Mike", "White", "pilot84574", 24, "KL35", "1st");
 
@@ -133,11 +137,11 @@ public class Main {
         passengerPlane.setPilot(pilot);
         passengerPlane.setFlightAttendants(List.of(attendant1, attendant2));
 
-        System.out.println("Airplane: " + passengerPlane);
+        LOGGER.info("Airplane: {}",passengerPlane);
     }
 
     public static LinkedList<Passenger> createPassengers() {
-        System.out.println("\n3. Passengers gathering for the flight...");
+        LOGGER.info("3. Passengers gathering for the flight...");
         LinkedList<Passenger> passengers = new LinkedList<>();
 
         Passenger passenger1 = new Passenger(1L, "Adam", "Lipski", 1, false, GOLD);
@@ -160,7 +164,7 @@ public class Main {
     }
 
     public static List<Ticket> createTickets(Long flightId, int ticketCount) {
-        System.out.println("\n4. Tickets prepared based of passenger plane capacity...");
+        LOGGER.info("4. Tickets prepared based of passenger plane capacity...");
 
         List<Ticket> tickets = new ArrayList<>();
 
@@ -171,7 +175,7 @@ public class Main {
     }
 
     public static Map<Passenger, Ticket> assignTicketsToPassengers(Queue<Passenger> passengers, List<Ticket> tickets) {
-        System.out.println("\n5. Passengers 'buy' tickets...");
+        LOGGER.info("5. Passengers 'buy' tickets...");
 
         Map<Passenger, Ticket> passengerTickets = new HashMap<>();
         int i = 0;
@@ -189,15 +193,18 @@ public class Main {
     }
 
     public static void checkLoungeAccess(Queue<Passenger> passengers) {
-        System.out.println("\nPassengers with lounge access:");
+        LOGGER.info("Passengers with lounge access:");
 
         passengers.stream()
                   .filter(passenger -> passenger.getPriority().hasLoungeAccess())
-                  .forEach(System.out::println);
+                  .forEach(passenger ->
+                          LOGGER.info("Passenger {} {} has lounge access",
+                                  passenger.getFirstName(),
+                                  passenger.getLastName()));
     }
 
     public static void checkInPassengers(LinkedList<Passenger> passengers) {
-        System.out.println("\n7. Ticket verification...");
+        LOGGER.info("\n7. Ticket verification...");
         CheckInAgent checkInAgent = new CheckInAgent();
 
         for (int i = 0; i < passengers.size(); i++) {
@@ -212,7 +219,7 @@ public class Main {
     }
 
     public static void checkCorona(Queue<Passenger> passengers) {
-        System.out.println("\n6. Corona check...");
+        LOGGER.info("6. Corona check...");
 
         SecurityAgent securityAgent = new SecurityAgent();
         int originalSize = passengers.size();
@@ -223,7 +230,7 @@ public class Main {
                 securityAgent.process(passenger);
                 passengers.add(passenger);
             } catch (PersonHasCoronaVirusException e) {
-                System.out.println(passenger + " is sick");
+                LOGGER.warn("Passenger {} is sick", passenger);
             }
         }
     }
@@ -245,7 +252,7 @@ public class Main {
 
         list.print();
 
-        System.out.println(list.getItem(2));
+        LOGGER.info(list.getItem(2));
 
     }
 

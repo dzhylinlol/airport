@@ -4,11 +4,16 @@ import com.solvd.airports.interfaces.IFly;
 import com.solvd.airports.models.people.FlightAttendant;
 import com.solvd.airports.models.people.Passenger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class PassengerPlane extends Airplane<Passenger> implements IFly {
+
+    private static final Logger LOGGER = LogManager.getLogger(PassengerPlane.class);
 
     private Integer capacity;
     private Integer baggageCapacityKg;
@@ -28,12 +33,12 @@ public class PassengerPlane extends Airplane<Passenger> implements IFly {
 
     @Override
     public void takeOff()  {
-        System.out.println("Passenger plane " + super.getModel() + " starting engines");
+        LOGGER.info("Passenger plane {} starting engines",super.getModel());
     }
 
     @Override
     public void land() {
-        System.out.println("Passenger plane " + super.getModel() + " landing");
+        LOGGER.info("Passenger plane {} landing", super.getModel());
     }
 
     public Integer getCapacity() {

@@ -1,7 +1,7 @@
 package com.solvd.airports.models.infrastructure;
 
 public class Gate {
-    private Integer number;// nullable
+    private Integer number;
 
     public Gate(Integer number) {
         this.number = number;

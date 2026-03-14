@@ -2,7 +2,13 @@ package com.solvd.airports.models.infrastructure;
 
 import com.solvd.airports.models.planes.Airplane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Flight {
+
+    private static final Logger LOGGER = LogManager.getLogger(Flight.class);
+
     private Long id;
     private Airport airportFrom;
     private Airport airportTo;
@@ -11,7 +17,7 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long id){
+    public Flight(Long id) {
         this.id = id;
     }
 
@@ -35,46 +41,19 @@ public class Flight {
 
     }
 
-//    public void addPassenger(Passenger newPassenger) {
-//        if (this.passengers == null) {
-//            this.passengers = new ArrayList<>();
-//            passengers.add(newPassenger);
-//            return;
-//        }
-//
-//        boolean hasSamePassenger = false;
-//        for (Passenger oldPassenger : passengers) {
-//            if (oldPassenger.equals(newPassenger)) {
-//                hasSamePassenger = true;
-//            }
-//        }
-//        if (hasSamePassenger == false) {
-//            this.passengers.add(newPassenger);
-//        }
-//    }
-
-//    public void addPassengers(List<Passenger> newPassengers) {
-//        for (Passenger newOne : newPassengers) {
-//            this.addPassenger(newOne);
-//        }
-//    }
-//
-//    public void addFlightAttendant(FlightAttendant flightAttendant) {
-//        if (this.flightAttendants == null) {
-//            this.flightAttendants = new ArrayList<>();
-//        }
-//        this.flightAttendants.add(flightAttendant);
-//    }
-
     public void start() {
-        System.out.println("Starting Flight...");
+        LOGGER.info("Starting Flight...");
         airplane.takeOff();
-    };
+    }
+
+    ;
 
     public void finish() {
         airplane.land();
-        System.out.println("Finishing Flight...");
-    };
+        LOGGER.info("Finishing Flight...");
+    }
+
+    ;
 
     public Long getId() {
         return id;
@@ -96,13 +75,14 @@ public class Flight {
         return airportFrom;
     }
 
-   public void setAirportFrom(Airport airportFrom) {
+    public void setAirportFrom(Airport airportFrom) {
         this.airportFrom = airportFrom;
-   }
+    }
 
     public void setAirportTo(Airport airportTo) {
         this.airportTo = airportTo;
     }
+
     public Airport getAirportTo() {
         return airportTo;
     }

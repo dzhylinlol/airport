@@ -4,12 +4,13 @@ public class Ticket {
     private String number;
     private Long flightId;
     private String seat;
+    private TicketClass ticketClass;
 
     public Ticket() {};
 
     public Ticket(String number,
                   Long flightId,
-                  String seat){
+                  String seat) {
         this.number = number;
         this.flightId = flightId;
         this.seat = seat;
@@ -28,14 +29,6 @@ public class Ticket {
         this.number = number;
     }
 
-//    public Flight getFlight() {
-//        return flight;
-//    }
-
-//    public void setFlight(Flight flight) {
-//        this.flight = flight;
-//    }
-
     public String getSeat() {
         return seat;
     }
@@ -44,5 +37,18 @@ public class Ticket {
         this.seat = seat;
     }
 
+    public Long getFlightId() {
+        return flightId;
+    }
+    public void setFlightId(Long flightId) {
+        this.flightId = flightId;
+    }
+    public TicketClass getTicketClass() {
+        return ticketClass;
+    }
+
+    public void setTicketClass(TicketClass ticketClass) {
+        this.ticketClass = ticketClass;
+    }
 }
 
