@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PassengerPlane extends Airplane<Passenger> implements IFly {
+public class PassengerPlane extends Airplane<Passenger>  {
 
     private static final Logger LOGGER = LogManager.getLogger(PassengerPlane.class);
 
