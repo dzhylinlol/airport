@@ -1,0 +1,158 @@
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 1. Flight is scheduled: Route...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Flight - 13, scheduled from Airport {code='WAW', name='Chopin'} to Airport {code='MSQ', name='Minsk National Airport'}
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Duration (minutes): 150
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Arrival Airport Contact Info - AirportContactInfo[airportCode=MSQ, phoneNumber=+375 17 279-13-00, email=msqtkt@transavia.by, website=https://airport.by] 
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 2. Crew assigned to the Airplane...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Airplane: Passenger plane: Boeing-4657
+Pilot: firstName='Mike', lastName='White', licenseNumber='KL35'}
+Attendants: [firstName='Zanna', lastName='Black' (Purser), firstName='Anna', lastName='Black']
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 3. Passengers gathering for the flight...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 4. Tickets prepared based of passenger plane capacity...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 5. Passengers 'buy' tickets...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Adam Lipski -> Ticket: T1
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Darya Zhylinskaya -> Ticket: T5
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Ewa Polska -> Ticket: T2
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Anna Mitskewich -> Ticket: T4
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Julia Miller -> Ticket: T7
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Piotr Zapolski -> Ticket: T3
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Julia Miller -> Ticket: T6
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passengers with lounge access:
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Adam Lipski has lounge access
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Piotr Zapolski has lounge access
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Anna Mitskewich has lounge access
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Darya Zhylinskaya has lounge access
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Julia Miller has lounge access
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 
+7. Ticket verification...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 6. Corona check...
+2026-03-16 16:01:59 WARN  com.solvd.airports.Main - Passenger Passenger: Ewa Polska  is sick
+2026-03-16 16:01:59 WARN  com.solvd.airports.Main - Passenger Passenger: Darya Zhylinskaya  is sick
+2026-03-16 16:01:59 WARN  com.solvd.airports.Main - Passenger Passenger: Julia Miller  is sick
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passengers who managed to get to the Plane after health/ticket screening> 
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Passenger: Adam Lipski  with ticket number Ticket: T1 A1
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Passenger: Piotr Zapolski  with ticket number Ticket: T3 A3
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Passenger: Anna Mitskewich  with ticket number Ticket: T4 A4
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger Passenger: Julia Miller  with ticket number Ticket: T6 A6
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 9. Flight processing...
+2026-03-16 16:01:59 ERROR com.solvd.airports.Main - Bad weather detected
+com.solvd.airports.exceptions.BadWeatherException: Weather is not flyable!
+	at com.solvd.airports.models.people.Meteorologist.checkWeather(Meteorologist.java:26) ~[classes/:?]
+	at com.solvd.airports.Main.main(Main.java:73) [classes/:?]
+2026-03-16 16:01:59 WARN  com.solvd.airports.Main - Waiting for good weather
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Weather updated to SUNNY
+2026-03-16 16:01:59 ERROR com.solvd.airports.Main - Plane is broken
+com.solvd.airports.exceptions.PlaneIsBrokenExceptionException: Plane is broken!
+	at com.solvd.airports.models.planes.Airplane.checkIsBroken(Airplane.java:28) ~[classes/:?]
+	at com.solvd.airports.Main.main(Main.java:75) [classes/:?]
+2026-03-16 16:01:59 WARN  com.solvd.airports.Main - Waiting for the plane to be fixed!
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - The plane is good to go!
+2026-03-16 16:01:59 INFO  com.solvd.airports.models.infrastructure.Flight - Starting Flight...
+2026-03-16 16:01:59 INFO  com.solvd.airports.models.planes.PassengerPlane - Passenger plane Boeing-4657 starting engines
+2026-03-16 16:01:59 INFO  com.solvd.airports.models.planes.PassengerPlane - Passenger plane Boeing-4657 landing
+2026-03-16 16:01:59 INFO  com.solvd.airports.models.infrastructure.Flight - Finishing Flight...
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - 10. Custom Linked List...
+2026-03-16 16:01:59 INFO  com.solvd.airports.services.DLinkedList - List values: Passenger: Bob Mem  Passenger: Mike Kek  Passenger: Luc Lol  Passenger: Rick Son  
+2026-03-16 16:01:59 INFO  com.solvd.airports.services.DLinkedList - List values: Passenger: Bob Mem  Passenger: Mike Kek  Passenger: Luc Lol  
+2026-03-16 16:01:59 INFO  com.solvd.airports.Main - Passenger: Luc Lol 
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 1. Flight is scheduled: Route...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Flight - 13, scheduled from Airport {code='WAW', name='Chopin'} to Airport {code='MSQ', name='Minsk National Airport'}
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Duration (minutes): 150
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Arrival Airport Contact Info - AirportContactInfo[airportCode=MSQ, phoneNumber=+375 17 279-13-00, email=msqtkt@transavia.by, website=https://airport.by] 
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 2. Crew assigned to the Airplane...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Airplane: Passenger plane: Boeing-4657
+Pilot: firstName='Mike', lastName='White', licenseNumber='KL35'}
+Attendants: [firstName='Zanna', lastName='Black' (Purser), firstName='Anna', lastName='Black']
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 3. Passengers gathering for the flight...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 4. Tickets prepared based of passenger plane capacity...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 5. Passengers 'buy' tickets...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Adam Lipski -> Ticket: T1
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Darya Zhylinskaya -> Ticket: T5
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Ewa Polska -> Ticket: T2
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Anna Mitskewich -> Ticket: T4
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Julia Miller -> Ticket: T7
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Piotr Zapolski -> Ticket: T3
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Julia Miller -> Ticket: T6
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passengers with lounge access:
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Adam Lipski has lounge access
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Piotr Zapolski has lounge access
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Anna Mitskewich has lounge access
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Darya Zhylinskaya has lounge access
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Julia Miller has lounge access
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 
+7. Ticket verification...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 6. Corona check...
+2026-03-17 14:09:12 WARN  com.solvd.airports.Main - Passenger Passenger: Ewa Polska  is sick
+2026-03-17 14:09:12 WARN  com.solvd.airports.Main - Passenger Passenger: Darya Zhylinskaya  is sick
+2026-03-17 14:09:12 WARN  com.solvd.airports.Main - Passenger Passenger: Julia Miller  is sick
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passengers who managed to get to the Plane after health/ticket screening> 
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Passenger: Adam Lipski  with ticket number Ticket: T1 A1
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Passenger: Piotr Zapolski  with ticket number Ticket: T3 A3
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Passenger: Anna Mitskewich  with ticket number Ticket: T4 A4
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger Passenger: Julia Miller  with ticket number Ticket: T6 A6
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 9. Flight processing...
+2026-03-17 14:09:12 ERROR com.solvd.airports.Main - Bad weather detected
+com.solvd.airports.exceptions.BadWeatherException: Weather is not flyable!
+	at com.solvd.airports.models.people.Meteorologist.checkWeather(Meteorologist.java:26) ~[classes/:?]
+	at com.solvd.airports.Main.main(Main.java:73) [classes/:?]
+2026-03-17 14:09:12 WARN  com.solvd.airports.Main - Waiting for good weather
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Weather updated to SUNNY
+2026-03-17 14:09:12 ERROR com.solvd.airports.Main - Plane is broken
+com.solvd.airports.exceptions.PlaneIsBrokenExceptionException: Plane is broken!
+	at com.solvd.airports.models.planes.Airplane.checkIsBroken(Airplane.java:28) ~[classes/:?]
+	at com.solvd.airports.Main.main(Main.java:75) [classes/:?]
+2026-03-17 14:09:12 WARN  com.solvd.airports.Main - Waiting for the plane to be fixed!
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - The plane is good to go!
+2026-03-17 14:09:12 INFO  com.solvd.airports.models.infrastructure.Flight - Starting Flight...
+2026-03-17 14:09:12 INFO  com.solvd.airports.models.planes.PassengerPlane - Passenger plane Boeing-4657 starting engines
+2026-03-17 14:09:12 INFO  com.solvd.airports.models.planes.PassengerPlane - Passenger plane Boeing-4657 landing
+2026-03-17 14:09:12 INFO  com.solvd.airports.models.infrastructure.Flight - Finishing Flight...
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - 10. Custom Linked List...
+2026-03-17 14:09:12 INFO  com.solvd.airports.services.DLinkedList - List values: Passenger: Bob Mem  Passenger: Mike Kek  Passenger: Luc Lol  Passenger: Rick Son  
+2026-03-17 14:09:12 INFO  com.solvd.airports.services.DLinkedList - List values: Passenger: Bob Mem  Passenger: Mike Kek  Passenger: Luc Lol  
+2026-03-17 14:09:12 INFO  com.solvd.airports.Main - Passenger: Luc Lol 
+2026-03-18 20:19:35 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:38:02 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:44:10 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:45:19 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:46:57 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:49:18 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:50:50 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:51:01 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:55:01 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-18 22:56:26 INFO  com.solvd.airports.utilities.WordCounter - Done. Check output.txt
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 waiting...
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 got connection 2
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 got connection 1
+2026-03-19 10:46:20 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 got connection 3
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 releasing connection 1
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 releasing connection 3
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 releasing connection 2
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 got connection 3
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 got connection 2
+2026-03-19 10:46:22 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 got connection 1
+2026-03-19 10:46:24 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 releasing connection 1
+2026-03-19 10:46:24 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 releasing connection 3
+2026-03-19 10:46:24 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 releasing connection 2
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 waiting...
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 got connection 1
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 got connection 3
+2026-03-19 14:16:19 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 got connection 2
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 releasing connection 2
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 releasing connection 3
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 releasing connection 1
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 got connection 2
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 got connection 3
+2026-03-19 14:16:21 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 got connection 1
+2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 releasing connection 1
+2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 releasing connection 2
+2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 releasing connection 3

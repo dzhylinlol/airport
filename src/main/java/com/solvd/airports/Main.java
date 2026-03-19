@@ -41,7 +41,7 @@ public class Main {
         assignments.entrySet()
                    .stream()
                    .forEach(entry ->
-                           LOGGER.info( "{} {} -> Ticket: {}",
+                           LOGGER.info("{} {} -> Ticket: {}",
                                    entry.getKey().getFirstName(),
                                    entry.getKey().getLastName(),
                                    entry.getValue().getNumber()
@@ -56,7 +56,7 @@ public class Main {
 
         LOGGER.info("Passengers who managed to get to the Plane after health/ticket screening> ");
         passengers.stream()
-                  .forEach(passenger -> LOGGER.info("Passenger {} with ticket number {}",passenger, passenger.getTicket()));
+                  .forEach(passenger -> LOGGER.info("Passenger {} with ticket number {}", passenger, passenger.getTicket()));
 
         passengerPlane.addPassengers(passengers);
         flight.setAirplane(passengerPlane);
@@ -78,13 +78,14 @@ public class Main {
                 LOGGER.error("Bad weather detected", e);
                 LOGGER.warn("Waiting for good weather");
                 weather = Weather.SUNNY;
-                LOGGER.info("Weather updated to {}", weather.name());;
+                LOGGER.info("Weather updated to {}", weather.name());
+                ;
             } catch (BaggageOverweightException e) {
-                LOGGER.error("Baggage Overweight detected",e);
+                LOGGER.error("Baggage Overweight detected", e);
                 passengers.getFirst().setBaggageWeightKG(5);
                 LOGGER.info("Overweight fixed...");
             } catch (PlaneIsBrokenExceptionException e) {
-                LOGGER.error("Plane is broken",e);
+                LOGGER.error("Plane is broken", e);
                 LOGGER.warn("Waiting for the plane to be fixed!");
                 passengerPlane.setIsBroken(false);
                 LOGGER.info("The plane is good to go!");
@@ -97,7 +98,6 @@ public class Main {
         LOGGER.info("10. Custom Linked List...");
         DLinkedList<Passenger> list = new DLinkedList<>();
         playWithLL(list);
-
     }
 
     public static void setAirports(Flight flight) {
@@ -117,13 +117,13 @@ public class Main {
                 LocalDateTime.of(2026, 3, 1, 14, 20),
                 LocalDateTime.of(2026, 3, 1, 16, 50));
 
-        LOGGER.info("Flight - {}, scheduled from {} to {}", flight.getId(), chopin,msq);
-        LOGGER.info("Duration (minutes): {}",route.getFlightDurationInMinutes());
+        LOGGER.info("Flight - {}, scheduled from {} to {}", flight.getId(), chopin, msq);
+        LOGGER.info("Duration (minutes): {}", route.getFlightDurationInMinutes());
     }
 
     public static void checkArrivalAirportContactInfo() {
         AirportContactInfo contactMSQ = new AirportContactInfo("MSQ", "+375 17 279-13-00", "msqtkt@transavia.by", "https://airport.by");
-        LOGGER.info("Arrival Airport Contact Info - {} ",contactMSQ);
+        LOGGER.info("Arrival Airport Contact Info - {} ", contactMSQ);
     }
 
     public static void addCrewToPlane(PassengerPlane passengerPlane) {
@@ -137,7 +137,7 @@ public class Main {
         passengerPlane.setPilot(pilot);
         passengerPlane.setFlightAttendants(List.of(attendant1, attendant2));
 
-        LOGGER.info("Airplane: {}",passengerPlane);
+        LOGGER.info("Airplane: {}", passengerPlane);
     }
 
     public static LinkedList<Passenger> createPassengers() {
@@ -255,5 +255,4 @@ public class Main {
         LOGGER.info(list.getItem(2));
 
     }
-
 }
