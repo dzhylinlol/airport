@@ -156,3 +156,21 @@ com.solvd.airports.exceptions.PlaneIsBrokenExceptionException: Plane is broken!
 2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 releasing connection 1
 2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 releasing connection 2
 2026-03-19 14:16:23 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 releasing connection 3
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 waiting...
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 got connection 1
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 got connection 3
+2026-03-29 13:13:55 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 got connection 2
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 1 releasing connection 3
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 2 releasing connection 2
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 5 releasing connection 1
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 got connection 3
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 got connection 2
+2026-03-29 13:13:57 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 got connection 1
+2026-03-29 13:13:59 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 4 releasing connection 2
+2026-03-29 13:13:59 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 6 releasing connection 3
+2026-03-29 13:13:59 INFO  com.solvd.airports.utilities.ConnectionPool - Thread 3 releasing connection 1
