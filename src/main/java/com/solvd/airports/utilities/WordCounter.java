@@ -34,7 +34,6 @@ public class WordCounter {
 
         } catch (IOException e) {
             LOGGER.error("Error while processing the file.");
-            e.printStackTrace();
         }
     }
 }
