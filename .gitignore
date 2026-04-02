@@ -1,3 +1,9 @@
+### Project-specific ###
+.idea/
+target/
+logs/
+*.log
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
