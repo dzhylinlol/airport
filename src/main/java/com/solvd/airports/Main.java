@@ -11,6 +11,8 @@ import com.solvd.airports.models.planes.PassengerPlane;
 import com.solvd.airports.services.DLinkedList;
 import com.solvd.airports.utilities.BaggageUtility;
 
+import com.solvd.airports.utilities.ConnectionPool;
+import com.solvd.airports.utilities.DBConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,6 +28,21 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
+
+        // ConnectionPool
+
+        ConnectionPool pool = ConnectionPool.getInstance();
+
+        DBConnection connection = pool.getConnection();
+        LOGGER.info("Available connections: {}", pool.getAvailableConnections());
+
+        if (connection != null) {
+            LOGGER.info("Connection taken from pool");
+            pool.releaseConnection(connection);
+        }
+
+        // Airport Project
+
         Flight flight = new Flight(13L);
         setAirports(flight);
 
@@ -234,6 +251,8 @@ public class Main {
             }
         }
     }
+
+    // Linked List DEMO
 
     public static void playWithLL(DLinkedList<Passenger> list) {
         Passenger passenger1 = new Passenger(11L, "Bob", "Mem", 20, false, GOLD);

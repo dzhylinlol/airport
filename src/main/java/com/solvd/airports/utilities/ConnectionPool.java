@@ -1,51 +1,62 @@
 package com.solvd.airports.utilities;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class ConnectionPool {
 
-   private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
-private static BlockingQueue<Integer> pool;
+    private static ConnectionPool instance;
+    private final BlockingQueue<DBConnection> pool;
+    private static final int MAX_CONNECTIONS = 3;
 
-    public static void main(String[] args) {
+    private ConnectionPool() {
+        pool = new LinkedBlockingQueue<>(MAX_CONNECTIONS);
 
-        int poolSize = 3;
-
-        pool = new ArrayBlockingQueue<>(poolSize);
-
-        for (int i = 1; i <= poolSize; i++) {
-            pool.add(i);
+        for (int i = 0; i < MAX_CONNECTIONS; i++) {
+            pool.add(new DBConnection());
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(6);
+        LOGGER.info("Connection pool created with {} connections", MAX_CONNECTIONS);
+    }
 
-        for (int i = 1; i <= 6; i++) {
-            int taskId = i;
-
-            executor.submit(() -> {
-                try {
-                    LOGGER.info("Thread {} waiting...", taskId);
-                    Integer connection = pool.take();
-
-                    LOGGER.info("Thread {} got connection {}", taskId, connection);
-
-                    Thread.sleep(2000);
-
-                    LOGGER.info("Thread {} releasing connection {}", taskId, connection);
-
-                    pool.put(connection);
-
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            });
+    public static synchronized ConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new ConnectionPool();
         }
-        executor.shutdown();
+        return instance;
+    }
+
+    public DBConnection getConnection() {
+        try {
+            LOGGER.info("Connection requested from pool");
+            return pool.take();
+        } catch (InterruptedException e) {
+            LOGGER.error("Error getting connection", e);
+            Thread.currentThread().interrupt(); // important
+            throw new RuntimeException("Failed to get connection", e);
+        }
+    }
+
+    public void releaseConnection(DBConnection connection) {
+        if (connection == null) {
+            LOGGER.warn("Attempted to return null connection to pool");
+            return;
+        }
+
+        boolean added = pool.offer(connection);
+
+        if (added) {
+            LOGGER.info("Connection returned to pool");
+        } else {
+            LOGGER.error("Failed to return connection: pool is full");
+        }
+    }
+
+    public int getAvailableConnections() {
+        return pool.size();
     }
 }
